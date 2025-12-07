@@ -3,7 +3,7 @@ const fs = require('fs')
 
 const server = http.createServer((request,response)=>{
 
-   const url = req.url;
+   const url = request.url;
 
     if (url === "/favicon.ico") {
         return;
@@ -11,7 +11,7 @@ const server = http.createServer((request,response)=>{
 
     let fileName = "";
 
-    switch (request.url) {
+    switch (url) {
 
         case "/":
             fileName="home.html";
