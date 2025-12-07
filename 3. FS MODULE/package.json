@@ -1,9 +1,9 @@
 {
-  "name": "nodejs",
+  "name": "fs-module",
   "version": "1.0.0",
-  "description": "",
+  "description": "To learn fs-modules",
   "license": "ISC",
-  "author": "",
+  "author": "Abhijit",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
