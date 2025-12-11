@@ -1,0 +1,16 @@
+{
+  "name": "express",
+  "version": "1.0.0",
+  "description": "express server making",
+  "license": "ISC",
+  "author": "Abhijit",
+  "type": "commonjs",
+  "main": "express.js",
+  "scripts": {
+    "start": "nodemon express"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "nodemon": "^3.1.11"
+  }
+}

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks</title>
+
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: #f0f2f5;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        th {
+            background: #0066ff;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        td {
+            padding: 12px;
+            text-align: center;
+            background: #fdfdfd;
+        }
+
+        tr:nth-child(even) td {
+            background: #f4f7ff;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 6px 12px;
+            font-size: 14px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .delete-btn {
+            background: #ff3b3b;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #d32c2c;
+        }
+
+        .edit-btn {
+            background: #009966;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background: #007a52;
+        }
+
+        .add-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background: #0066ff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .add-btn:hover {
+            background: #004fcc;
+        }
+
+        .tick {
+            color: #1cc700;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .empty-msg {
+            padding: 20px;
+            font-size: 18px;
+            color: #555;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Your Task List</h1>
+
+        <table border="0">
+            <tr>
+                <th>No.</th>
+                <th>Task</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+
+            <% if (task.length===0) { %>
+                <tr>
+                    <td colspan="6" class="empty-msg">Nothing in the task... please add.</td>
+                </tr>
+                <% } else { %>
+                    <% task.map((task, index)=> { %>
+                        <tr>
+                            <td>
+                                <%= task.tasknum %>
+                            </td>
+                            <td>
+                                <%= task.name %>
+                            </td>
+                            <td>
+                                <%= task.taskdate %>
+                            </td>
+                            <td>
+                                <%= task.tasktime %>
+                            </td>
+
+                            <td>
+                                <% if (task.status==="Completed" ) { %>
+                                    <span class="tick">✔</span>
+                                    <% } else { %>
+                                        ❌
+                                        <% } %>
+                            </td>
+
+                            <td>
+                                <a href="/deletetask?taskid=<%= task.tasknum %>" class="delete-btn">Delete</a>
+                                <a href="/editPage?taskid=<%= task.tasknum %>" class="edit-btn">Edit</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                            <% } %>
+
+        </table>
+
+        <a class="add-btn" href="/addtask">Add Task</a>
+
+    </div>
+
+</body>
+
+</html>

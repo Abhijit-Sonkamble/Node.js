@@ -26,11 +26,11 @@ fs.appendFile('./doc.txt', 'Hello Game',(err)=>{
 
 /* Read  koi file ko terminal me dekhne ke liye*/
 
-//Sync
+// //Sync
 const result = fs.readFileSync('./doc.txt',"utf-8");
 console.log(result)
 
-// Async
+// // Async
 fs.readFile('./doc.txt', 'utf-8',(err,result)=>{
     if(err){
         console.log(err);
@@ -45,3 +45,5 @@ fs.unlinkSync()//(Path dena rahega)
 
 /*Copy karnya sathi eka file madhun dusri kade */
 fs.copyFileSync()//(kis file me se kis file me jana hai uske liye)
+
+//Async he async var ch work karte and sync he sync var ch
