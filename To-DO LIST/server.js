@@ -11,7 +11,7 @@ let tasknum = 1;
 
 app.get("/",(request,response)=>{
     response.render("table",{
-    task:alltask
+    task : alltask
 });
 });
 
