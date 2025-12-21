@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'Edu AU VIC WA NT Guides';
+    src: url('EduAUVICWANTGuides-Medium.woff2') format('woff2'),
+        url('EduAUVICWANTGuides-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Edu AU VIC WA NT Guides';
+    src: url('EduAUVICWANTGuides-Regular.woff2') format('woff2'),
+        url('EduAUVICWANTGuides-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Edu AU VIC WA NT Guides';
+    src: url('EduAUVICWANTGuides-Bold.woff2') format('woff2'),
+        url('EduAUVICWANTGuides-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Edu AU VIC WA NT Guides';
+    src: url('EduAUVICWANTGuides-SemiBold.woff2') format('woff2'),
+        url('EduAUVICWANTGuides-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+

@@ -8,11 +8,21 @@ const PORT = 1000;
 app.set("view engine", "ejs");
 app.use(express.urlencoded());
 
-app.get("/", (req,res)=>{
-  return  res.render("form")
-})
+app.get("/", async(req,res)=>{
 
-app.post("/addProduct" , async(req , res ) => {
+  //.find he fetch karte data la hi ek feature method aahe
+ const allMovies = await Movie.find();
+console.log(allMovies);
+return res.render("table", { allMovies });
+});
+
+//Add kelyavr movie chya page vr gheun janya sathi
+app.get("/addMoviePage",(req,res)=>{
+  return res.render("form");
+});
+
+
+app.post("/addMovie" , async(req , res ) => {
 
   //Form madhla data denya sathi
     console.log(req.body);
@@ -23,14 +33,29 @@ app.post("/addProduct" , async(req , res ) => {
     if (movieAdded) {
 
       console.log("Movie added....");
-       //Form madhun part home page vr yena sathi
-    return res.redirect("/");
     }
     else{
       console.log("Not added");
     }
+     //Form madhun part home page vr yena sathi
+    return res.redirect("/");
+})
 
-   
+//Delete Movie
+app.get("/deleteMovie" , async(req,res)=>{
+  console.log(req.query);
+
+  //.findByIdAndDelete hi ek method aahe ji id la find karun delete karte
+ const deleteMovie = await Movie.findByIdAndDelete(req.query.id);
+
+ if (deleteMovie) {
+  console.log("Deleted....");
+ }
+ else{
+  console.log("Not deleted....");
+ }
+
+ return res.redirect("/");
 })
 
 app.listen(PORT ,  (err) => {

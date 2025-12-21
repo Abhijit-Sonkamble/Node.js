@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+
+<body>
+    <h1>Home</h1>
+
+    <table align="center" border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Movie Name</th>
+                <th>Release date</th>
+                <th>Budged</th>
+                <th>Language</th>
+                <th>Image</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% allMovies.map((movie, index)=> { %>
+                <tr>
+                    <th scope="row">
+                        <%= index + 1 %>
+                    </th>
+                    <td>
+                        <%= movie.name %>
+                    </td>
+                    <td>
+                        <%= movie.release %>
+                    </td>
+                    <td>
+                        <%= movie.budget %>
+                    </td>
+                    <td>
+                        <%= movie.language %>
+                    </td>
+                    <td>
+                        <img src="<%= movie.image %>" alt="<%= movie.name %>" width="80" />
+                    </td>
+                    <td>
+                        <button><a href="/deleteMovie?id=<%=movie.id%>">Delete</a></button>
+                        <button>Edit</button>
+                    </td>
+                </tr>
+
+                <% }) %>
+        </tbody>
+
+    </table>
+    <button><a href="/addMoviePage">Add Movie</a></button>
+</body>
+
+</html>
