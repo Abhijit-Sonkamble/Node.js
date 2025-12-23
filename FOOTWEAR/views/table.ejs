@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footwear Admin</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header class="header">
+            <h1>👟 Footwear Dashboard</h1>
+            <a href="/addFootwearPage" class="add-btn">+ Add Footwear</a>
+        </header>
+
+        <div class="card-grid">
+            <% allFootwear.forEach((footwear)=> { %>
+
+                <div class="card">
+
+                    <div class="card-image">
+                        <img src="<%= footwear.image %>" alt="<%= footwear.name %>">
+                    </div>
+
+                    <div class="card-body">
+                        <h2 class="name">
+                            <%= footwear.name %>
+                        </h2>
+
+                        <p class="color">
+                            Color
+                            <span style="background: <%= footwear.color %>"></span>
+                        </p>
+
+                        <p class="price">
+                            ₹ <%= Number(footwear.price).toLocaleString("en-IN") %>
+                        </p>
+
+                        <p class="size">Size: <%= footwear.size %>
+                        </p>
+
+                        <div class="actions">
+                            <a href="/editFootwear/<%= footwear._id %>" class="edit">Edit</a>
+                            <a href="/deleteFootwear?id=<%= footwear._id %>" class="delete">Delete</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <% }) %>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

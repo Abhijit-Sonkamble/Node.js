@@ -1,0 +1,15 @@
+//Attachement of mongoose
+const mongoose = require("mongoose");
+
+//Attachement of mongo URL
+const URL = ("mongodb://localhost:27017/Footwear")
+
+mongoose.connect(URL).then(()=>{
+    //Then he use kele nahi tri chalte pn connected zale ki nahi te kalte....
+    console.log("Connected")
+}).catch(()=>{
+    //catch he kahi problem aali tya sathi asate
+    console.log("Not connected")
+}).finally(()=>{
+    console.log("Finally");
+})

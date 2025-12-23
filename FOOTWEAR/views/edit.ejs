@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Footwear</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="edit-form-title" style="text-align: center;">Edit Footwear</h1>
+
+        <form class="edit-footwear-form" method="post" action="/Update">
+            <input type="hidden" name="id" value="<%= footwear.id %>">
+
+            <div class="edit-form-group">
+                <label>Footwear Name</label>
+                <input type="text" name="name" value="<%= footwear.name %>">
+            </div>
+
+            <div class="edit-form-group">
+                <label>Color</label>
+                <input type="text" name="color" value="<%= footwear.color %>" placeholder="e.g. Red or #ff0000">
+            </div>
+
+            <div class="edit-form-group">
+                <label>Price</label>
+                <input type="number" name="price" value="<%= footwear.price %>">
+            </div>
+
+            <div class="edit-form-group">
+                <label>Size</label>
+                <input type="number" name="size" value="<%= footwear.size %>">
+            </div>
+
+            <div class="edit-form-group">
+                <label>Image URL</label>
+                <input type="text" name="image" value="<%= footwear.image %>">
+            </div>
+
+            <button class="edit-submit-btn" type="submit">Update Footwear</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
