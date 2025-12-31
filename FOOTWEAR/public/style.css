@@ -1,4 +1,4 @@
-/* ===== RESET ===== */
+/* Global */
 * {
   margin: 0;
   padding: 0;
@@ -6,20 +6,19 @@
   font-family: "Segoe UI", sans-serif;
 }
 
-/* ===== BASE ===== */
 body {
   background: #f5f7fb;
   color: #2c2c2c;
 }
 
-/* ===== CONTAINER ===== */
+/* Container */
 .container {
   max-width: 1200px;
   margin: 40px auto;
   padding: 0 15px;
 }
 
-/* ===== HEADER ===== */
+/* Header */
 .header {
   display: flex;
   justify-content: space-between;
@@ -46,14 +45,13 @@ body {
   background: #303f9f;
 }
 
-/* ===== CARD GRID ===== */
+/* Card */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 25px;
 }
 
-/* ===== CARD ===== */
 .card {
   background: #ffffff;
   border-radius: 18px;
@@ -67,7 +65,7 @@ body {
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);
 }
 
-/* ===== IMAGE ===== */
+/* Image */
 .card-image {
   height: 180px;
   background: #eef1f8;
@@ -79,7 +77,7 @@ body {
   object-fit: cover;
 }
 
-/* ===== BODY ===== */
+
 .card-body {
   padding: 18px;
 }
@@ -90,7 +88,7 @@ body {
   margin-bottom: 8px;
 }
 
-/* ===== COLOR ===== */
+/* Color */
 .color {
   display: flex;
   align-items: center;
@@ -107,7 +105,7 @@ body {
   border: 1px solid #dcdfe6;
 }
 
-/* ===== PRICE ===== */
+/* Price */
 .price {
   font-size: 22px;
   font-weight: 900;
@@ -115,13 +113,13 @@ body {
   margin-bottom: 6px;
 }
 
-/* ===== SIZE ===== */
+/* Size */
 .size {
   font-size: 14px;
   color: #6b7280;
 }
 
-/* ===== ACTIONS ===== */
+/* Actions */
 .actions {
   display: flex;
   gap: 12px;
@@ -156,7 +154,7 @@ body {
   background: #c62828;
 }
 
-/* ===== ADD FOOTWEAR FORM ===== */
+/* ADD Form */
 .form-title {
   font-size: 28px;
   font-weight: 800;
@@ -217,7 +215,7 @@ body {
 .submit-btn:hover {
   background: #303f9f;
 }
-/* ===== REMOVE COLOR PICKER ICON ===== */
+/* Remove icon */
 input[type="color"] {
   -webkit-appearance: none;
   appearance: none;
@@ -234,7 +232,7 @@ input[type="color"]::-webkit-color-swatch {
   border: none;
   border-radius: 10px;
 }
-/* ===== EDIT FOOTWEAR FORM (UNIQUE) ===== */
+/*Edit */
 
 .edit-form-title {
   font-size: 28px;
@@ -297,7 +295,7 @@ input[type="color"]::-webkit-color-swatch {
   background: #303f9f;
 }
 
-/* remove ugly color icon here also */
+/* remove color */
 .edit-form-group input[type="color"] {
   -webkit-appearance: none;
   appearance: none;

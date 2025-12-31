@@ -2,7 +2,7 @@ const express = require("express");
 require("./config/db.config");
 const path = require("path");
 
-//Movie model la export karun ithe require kele
+
 const Footwear = require("./model/footwear.model");
 const app = express();
 const PORT = 1000;
@@ -21,7 +21,7 @@ app.get("/", async (req, res) => {
   return res.render("table", { allFootwear });
 });
 
-//Add kelyavr movie chya page vr gheun janya sathi
+
 app.get("/addFootwearPage", (req, res) => {
   return res.render("form");
 });
@@ -67,7 +67,7 @@ app.post("/Update", async (req, res) => {
   return res.redirect("/");
 });
 
-//Delete Movie
+//Delete Footwear
 app.get("/deleteFootwear", async (req, res) => {
   console.log(req.query);
 
