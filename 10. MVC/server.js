@@ -4,6 +4,8 @@ const PORT = 1000;
 
 app.set("view engine" , "ejs");
 
+
+//Routes also work in server thats why we exports here
 app.use("/" , require("./routes/index"))
 
 
