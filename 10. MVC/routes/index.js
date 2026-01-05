@@ -5,7 +5,7 @@ kelya vr kontya page vr he sagle ithe hoil
 
 
 const express = require("express");
-const { homePage } = require("../controllers/home.controller");
+const { homePage} = require("../controllers/home.controller");
 
 
 //For export router and router is method
