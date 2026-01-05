@@ -11,6 +11,6 @@ const { homePage } = require("../controllers/home.controller");
 //For export router and router is method
 const route = express.Router(); //we store route in variable
 
-route.get("/" , homePage)
+route.get("/" , homePage);
 
 module.exports = route; //Dusrya file madhe gheun janya sathi use hote
