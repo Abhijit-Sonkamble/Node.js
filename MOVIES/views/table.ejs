@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Dashboard</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <header class="header">
+        <h1>🎬 Movie Dashboard</h1>
+        <a href="/add" class="add-btn">+ Add Movie</a>
+    </header>
+
+    <div class="movies-list">
+
+        <% if(allMovies.length === 0) { %>
+            <p>No movies found. Add some!</p>
+        <% } %>
+
+        <% allMovies.forEach((movie) => { %>
+            <div class="movie-card">
+
+                <div class="card-image">
+                    <img src="<%= movie.poster %>" alt="<%= movie.movie_name %>">
+                </div>
+
+                <div class="card-content">
+                    <h2><%= movie.movie_name %></h2>
+                    <p><strong>Type:</strong> <%= movie.movie_type %></p>
+                    <p><strong>Release:</strong> <%= new Date(movie.release_date).toDateString() %></p>
+                    <p><strong>Budget:</strong> ₹ <%= Number(movie.budget).toLocaleString("en-IN") %></p>
+
+                    <div class="actions">
+                        <a href="/edit?id=<%= movie._id %>" class="edit">Edit</a>
+                        <a href="/delete?id=<%= movie._id %>" class="delete">Delete</a>
+                    </div>
+                </div>
+
+            </div>
+        <% }) %>
+
+    </div>
+
+</div>
+
+</body>
+</html>
