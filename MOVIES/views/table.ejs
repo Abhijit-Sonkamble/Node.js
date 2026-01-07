@@ -1,50 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Movie Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineManage</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
 </head>
+
 <body>
 
-<div class="container">
+    <main class="container">
 
-    <header class="header">
-        <h1>🎬 Movie Dashboard</h1>
-        <a href="/add" class="add-btn">+ Add Movie</a>
-    </header>
-
-    <div class="movies-list">
-
-        <% if(allMovies.length === 0) { %>
-            <p>No movies found. Add some!</p>
-        <% } %>
-
-        <% allMovies.forEach((movie) => { %>
-            <div class="movie-card">
-
-                <div class="card-image">
-                    <img src="<%= movie.poster %>" alt="<%= movie.movie_name %>">
-                </div>
-
-                <div class="card-content">
-                    <h2><%= movie.movie_name %></h2>
-                    <p><strong>Type:</strong> <%= movie.movie_type %></p>
-                    <p><strong>Release:</strong> <%= new Date(movie.release_date).toDateString() %></p>
-                    <p><strong>Budget:</strong> ₹ <%= Number(movie.budget).toLocaleString("en-IN") %></p>
-
-                    <div class="actions">
-                        <a href="/edit?id=<%= movie._id %>" class="edit">Edit</a>
-                        <a href="/delete?id=<%= movie._id %>" class="delete">Delete</a>
-                    </div>
-                </div>
-
+        <header class="header">
+            <div class="logo-area">
+                <h1>🎬 CineManage</h1>
+                <p class="subtitle">Premium Film Database</p>
             </div>
-        <% }) %>
+            <a href="/add" class="add-btn">
+                <span>+</span> Add New Movie
+            </a>
+        </header>
 
-    </div>
+        <section class="movies-list">
 
-</div>
+            <% if(allMovies.length===0) { %>
+                <div class="empty-state">
+                    <div class="empty-icon">📂</div>
+                    <p>Your library is empty. Start by adding your first cinema masterpiece!</p>
+                    <a href="/add" class="add-btn" style="margin-top: 20px; display: inline-block;">Add Movie</a>
+                </div>
+                <% } %>
+
+                    <% allMovies.forEach((movie)=> { %>
+                        <article class="movie-card">
+
+                            <div class="card-image">
+                                <img src="<%= movie.poster %>" alt="Poster for <%= movie.movie_name %>" loading="lazy">
+                            </div>
+
+                            <div class="card-content">
+                                <h2 title="<%= movie.movie_name %>">
+                                    <%= movie.movie_name %>
+                                </h2>
+
+                                <div class="meta-info">
+                                    <p>
+                                        <strong>Release Year</strong>
+                                        <span>
+                                            <%= new Date(movie.release_date).getFullYear() %>
+                                        </span>
+                                    </p>
+                                    <p>
+                                        <strong>Budget</strong>
+                                        <span class="currency">
+                                            ₹<%= Number(movie.budget).toLocaleString("en-IN") %>
+                                        </span>
+                                    </p>
+                                </div>
+
+                                <footer class="actions">
+                                    <a href="/edit?id=<%= movie._id %>" class="edit"
+                                        aria-label="Edit <%= movie.movie_name %>">
+                                        Edit
+                                    </a>
+                                    <a href="/delete?id=<%= movie._id %>" class="delete"
+                                        aria-label="Delete <%= movie.movie_name %>">
+                                        Delete
+                                    </a>
+                                </footer>
+                            </div>
+
+                        </article>
+                        <% }) %>
+
+        </section>
+
+    </main>
 
 </body>
+
 </html>

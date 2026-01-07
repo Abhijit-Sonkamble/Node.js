@@ -28,7 +28,12 @@ const updatePage = async (req, res) => {
 // Actions
 const addMovie = async (req, res) => {
   try {
-    await Movie.create(req.body);
+    const movieData = {
+      ...req.body,
+      poster: req.file ? `/uploads/${req.file.filename}` : ""
+    };
+
+    await Movie.create(movieData);
     res.redirect("/");
   } catch (err) {
     console.error(err);
@@ -39,6 +44,11 @@ const addMovie = async (req, res) => {
 const updateMovie = async (req, res) => {
   try {
     const { id, ...data } = req.body;
+
+    if (req.file) {
+      data.poster = `/uploads/${req.file.filename}`;
+    }
+
     await Movie.findByIdAndUpdate(id, data);
     res.redirect("/");
   } catch (err) {

@@ -1,0 +1,343 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700&display=swap");
+
+/* =========================
+   Root Variables
+========================= */
+:root {
+  --bg-dark: #08090b;
+  --bg-gradient: radial-gradient(circle at 50% 0%, #1e1f26 0%, #08090b 100%);
+  --accent-primary: #ff0015;
+
+  --card-bg: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(255, 255, 255, 0.06);
+
+  --text-main: #f5f5f7;
+  --text-muted: #8e8e93;
+}
+
+/* =========================
+   Reset
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =========================
+   Body & Layout
+========================= */
+body {
+  min-height: 100vh;
+  background: var(--bg-gradient);
+  color: var(--text-main);
+  font-family: "Inter", sans-serif;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* =========================
+   Header
+========================= */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 45px;
+}
+
+.logo-area h1 {
+  font-family: "Outfit", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(to right, #ffffff, #8a8a8a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* =========================
+   Add Button
+========================= */
+.add-btn {
+  background: var(--accent-primary);
+  color: white;
+  text-decoration: none;
+  padding: 11px 26px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: background 0.3s ease;
+}
+
+.add-btn:hover {
+  background: #ff1f32;
+}
+
+/* =========================
+   Movie Grid
+========================= */
+.movies-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 26px;
+}
+
+/* =========================
+   Movie Card
+========================= */
+.movie-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================
+   Card Image (FIXED)
+========================= */
+/* =========================
+   Card Image (With Hover Zoom)
+========================= */
+.card-image {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  background: #0e0f14;
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+/* Hover Zoom Effect */
+.movie-card:hover .card-image img {
+  transform: scale(1.1);
+}
+
+/* =========================
+   Card Content
+========================= */
+.card-content {
+  padding: 15px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-content h2 {
+  font-family: "Outfit", sans-serif;
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================
+   Meta Info
+========================= */
+.meta-info p {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.meta-info strong {
+  font-size: 0.65rem;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+}
+
+/* =========================
+   Actions
+========================= */
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.actions a {
+  flex: 1;
+  padding: 8px 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+/* Edit */
+.edit {
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+}
+
+.edit:hover {
+  background: white;
+  color: black;
+}
+
+/* Delete */
+.delete {
+  background: rgba(255, 0, 21, 0.12);
+  color: var(--accent-primary);
+}
+
+.delete:hover {
+  background: var(--accent-primary);
+  color: white;
+}
+
+/* =========================
+   Empty State
+========================= */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-muted);
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  opacity: 0.7;
+}
+
+.empty-state p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+/* =========================
+   Add Movie Form Page
+========================= */
+
+.form-container {
+  max-width: 480px;
+  margin: 31px auto;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  padding: 35px 38px 40px;
+}
+
+.form-container h1 {
+  font-family: "Outfit", sans-serif;
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  text-align: center;
+  background: linear-gradient(to right, #ffffff, #8a8a8a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================
+   Form Layout
+========================= */
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  color: var(--accent-primary);
+}
+
+/* =========================
+   Inputs
+========================= */
+
+.form-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--card-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-main);
+  font-size: 0.85rem;
+  outline: none;
+  transition: border 0.25s ease, background 0.25s ease;
+}
+
+.form-group input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Focus State */
+.form-group input:focus {
+  border-color: var(--accent-primary);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* =========================
+   Buttons
+========================= */
+
+form button {
+  width: 100%;
+  margin-top: 18px;
+  padding: 12px;
+  border: none;
+  border-radius: 50px;
+  background: var(--accent-primary);
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background: #ff1f32;
+}
+
+/* Cancel Button */
+.cancel-btn {
+  display: block;
+  text-align: center;
+  margin-top: 14px;
+  font-size: 0.8rem;
+  text-decoration: none;
+  color: var(--text-muted);
+  transition: color 0.25s ease;
+}
+
+.cancel-btn:hover {
+  color: white;
+}
+
+/* =========================
+   Mobile Optimization
+========================= */
+
+@media (max-width: 480px) {
+  .form-container {
+    padding: 30px 24px 34px;
+  }
+}
