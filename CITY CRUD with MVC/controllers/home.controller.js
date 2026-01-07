@@ -1,0 +1,1 @@
+const tablePage = ("/" , tablePage)
