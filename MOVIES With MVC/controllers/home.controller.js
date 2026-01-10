@@ -1,4 +1,5 @@
 const Movie = require("../model/movie.model");
+const fs = require('fs');
 
 // Render pages
 const tablePage = async (req, res) => {
@@ -28,16 +29,20 @@ const updatePage = async (req, res) => {
 // Actions
 const addMovie = async (req, res) => {
   try {
-    const movieData = {
-      ...req.body,
-      poster: req.file ? `/uploads/${req.file.filename}` : ""
-    };
 
-    await Movie.create(movieData);
+    // console.log("Add Movie");
+    // console.log(req.file);
+    // console.log(req.body);
+
+    req.body.poster = req.file.path;
+    
+    const movieData = await Movie.create(req.body);
+
+    // await Movie.create(movieData);
     res.redirect("/");
   } catch (err) {
     console.error(err);
-    res.send("Error adding movie");
+    return res.redirect('/add');
   }
 };
 
@@ -59,7 +64,16 @@ const updateMovie = async (req, res) => {
 
 const deleteMovie = async (req, res) => {
   try {
-    await Movie.findByIdAndDelete(req.query.id);
+    const deletedMovie = await Movie.findByIdAndDelete(req.query.id);
+
+    console.log("Deleted Movie : ",deletedMovie);
+    console.log(__dirname);    
+
+    fs.unlink(deletedMovie.poster, (err)=> {
+      if(err) {
+        console.log("Error : ",err);
+      }
+    });
     res.redirect("/");
   } catch (err) {
     console.error(err);

@@ -7,6 +7,7 @@ const PORT = 1000;
 // EJS setup
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname));
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
