@@ -1,5 +1,3 @@
-
-
 const express = require ("express");
 const { dashboardPage } = require("../controllers/admin.controller");
 
