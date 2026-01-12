@@ -1,8 +1,15 @@
 const express = require ("express");
-const { dashboardPage } = require("../controllers/admin.controller");
+const { dashboardPage, addAdmin, viewAdmin } = require("../controllers/admin.controller");
 
 const route = express.Router();
 
-route.get("/" , dashboardPage)
+//Dashboard
+route.get("/" , dashboardPage);
+
+//Add Admin
+route.get("/addAdmin" , addAdmin);
+
+//View Page
+route.get("/viewAdmin" , viewAdmin)
 
 module.exports = route;
