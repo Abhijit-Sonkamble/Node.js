@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
-                        <form class="form-horizontal" method="post" action="/insertAdmin" enctype="multipart/form-data">
+                        <form class="form-horizontal" method="post" action="/insert" >
                             <div class="card-body">
                                 <h4 class="card-title">Personal Info</h4>
 
@@ -101,7 +101,7 @@
                                     <div class="col-md-9">
                                         <% ["Reading", "Playing" , "Other" ].map((hobby, index)=> { %>
                                             <div class="custom-control custom-checkbox mr-sm-2">
-                                                <input type="checkbox" name="hobby[]" value="<%= hobby%>"
+                                                <input type="checkbox" name="hobby" value="<%= hobby%>"
                                                     class="custom-control-input"
                                                     id="customControlAutosizing<%= index+1%>">
                                                 <label class="custom-control-label"
@@ -142,7 +142,7 @@
                                 </div>
 
                                 <!-- Profile Image -->
-                                <div class="form-group row">
+                                <!-- <div class="form-group row">
                                     <label class="col-sm-3 text-right control-label col-form-label">Profile
                                         Image</label>
                                     <div class="col-md-9">
@@ -150,7 +150,7 @@
                                             <input type="file" name="profile_image" required>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="border-top">
                                 <div class="card-body">

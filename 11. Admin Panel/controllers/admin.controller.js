@@ -12,3 +12,9 @@ module.exports.addAdmin = (req , res)=>{
 module.exports.viewAdmin = (req , res)=>{
     return res.render("viewAdmin")
 }
+
+//Insert page
+module.exports.insert = (req , res)=>{
+    // return res.render("insert");
+    console.log(req.body)
+}  
