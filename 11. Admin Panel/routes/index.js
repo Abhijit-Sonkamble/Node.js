@@ -1,6 +1,6 @@
 const express = require ("express");
 const multer = require("multer")
-const { dashboardPage, addAdmin, viewAdmin, insert } = require("../controllers/admin.controller");
+const { dashboardPage, addAdmin, viewAdmin, insert, deleteAdmin } = require("../controllers/admin.controller");
 
 const route = express.Router();
 //Multer for add file in folders
@@ -16,7 +16,6 @@ const data = multer.diskStorage({
 const upload = multer({storage:data});
 
 
-
 //Dashboard
 route.get("/" , dashboardPage);
 
@@ -28,5 +27,8 @@ route.get("/viewAdmin" , viewAdmin)
 
 //Insert Page
 route.post("/insert" ,upload.single("profile_image"), insert)
+
+//Delete
+route.get("/delete",deleteAdmin)
 
 module.exports = route;

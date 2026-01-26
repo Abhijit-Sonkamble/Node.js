@@ -46,3 +46,13 @@ module.exports.insert = async(req , res)=>{
     }
     console.log(req.body)
 }  
+
+//Delete
+module.exports.deleteAdmin = async(req, res)=>{
+    try{
+        const await deleted = 
+    }catch(err){
+         console.log("Error : ",err);
+        return res.redirect("/viewAdmin");
+    }
+}
