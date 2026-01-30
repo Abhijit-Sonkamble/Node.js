@@ -1,57 +1,42 @@
-       <%- include('header.ejs')%>
+<%- include('header.ejs') %>
 
+    <div class="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
 
-       <div class="page-wrapper">  
-            <div class="page-breadcrumb">
-                <div class="row">
-                    <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">All Admin</h4>
-                        <div class="ml-auto text-right">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-           
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title m-b-0">Static Table</h5>
-                            </div>
-                            <table class="table">
-                                  <thead>
-                                    <tr>
+                            <h4 class="card-title">View Admin</h4>
+
+                            <div class="table-responsive">
+                                <table id="zero_config" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
                                             <th>No</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
+                                            <th>Name</th>
+                                            <th>Last</th>
                                             <th>Email</th>
                                             <th>Password</th>
                                             <th>Phone</th>
                                             <th>Gender</th>
                                             <th>Hobby</th>
                                             <th>City</th>
-                                            <th>About</th>
+                                            <th>about</th>
                                             <th>Image</th>
-                                            <th>Action</th>
-                                  </thead>
-                                  <tbody>
-                                    <% allAdmin.map((admin, index)=> { %>
+                                            <th colspan="2">Action</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <% allAdmin.forEach((admin, index)=> { %>
                                             <tr>
                                                 <td>
-                                                    <%= index + 1%>
+                                                    <%= index + 1 %>
                                                 </td>
-
                                                 <td>
                                                     <%= admin.fname %>
                                                 </td>
-
                                                 <td>
                                                     <%= admin.lname %>
                                                 </td>
@@ -76,30 +61,34 @@
                                                 <td>
                                                     <%= admin.about %>
                                                 </td>
+
                                                 <td>
-                                                    <img src="<%= admin.profile_image %>" width="100" alt="">
+                                                    <img src="/<%= admin.profile_image %>" width="60">
                                                 </td>
 
-                                                <% if(admin.id==="6958912fc5bdd10ecc947d5a" ) {%>
-                                                    <td>
-                                                        <button class="btn btn-danger"><a
-                                                                href="/deleteAdmin?adminId=<%= admin.id %>"
-                                                                style="color: white;">Delete</a></button>
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-warning"><a
-                                                                href="/editAdmin/<%= admin.id %>"
-                                                                style="color: white;">Edit</a></button>
-                                                    </td>
-                                                    <% }%>
+                                                <td>
+                                                    <a href="/delete?adminId=<%= admin.id %>"
+                                                        class="btn btn-danger btn-sm">
+                                                        Delete
+                                                    </a>
+                                                </td>
+
+                                                <td>
+                                                    <a href="/editAdmin/<%= admin.id %>" class="btn btn-warning btn-sm">
+                                                        Edit
+                                                    </a>
+                                                </td>
                                             </tr>
                                             <% }) %>
-                                     
-                                  </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-       <%- include('footer.ejs')%>
+    <%- include('footer.ejs') %>

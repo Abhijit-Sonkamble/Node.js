@@ -1,0 +1,51 @@
+<%- include('../header') %>
+
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Admin Profile</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card shadow mb-4">
+                    <div class="card-body text-center">
+                        <img class="img-profile rounded-circle mb-3" src="/<%= admin.profile_image %>"
+                            style="width: 150px; height: 150px; object-fit: cover; border: 3px solid #4e73df;">
+                        <h5 class="font-weight-bold text-primary">
+                            <%= admin.name %>
+                        </h5>
+                        <p class="text-muted small">Administrator</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Account Details</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-sm-3 font-weight-bold">Full Name:</div>
+                            <div class="col-sm-9 text-secondary">
+                                <%= admin.fname + " " + admin.lname %>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3 font-weight-bold">Email:</div>
+                            <div class="col-sm-9 text-secondary">
+                                <%= admin.email %>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="mt-4">
+                            <a href="/editAdmin/<%= admin._id %>" class="btn btn-primary btn-sm px-4">Edit Profile</a>
+                            <a href="/changePasswordPage" class="btn btn-warning btn-sm px-4">Change Password</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../footer') %>

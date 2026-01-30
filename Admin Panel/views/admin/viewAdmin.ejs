@@ -1,0 +1,59 @@
+<%- include('../header')%>
+    <div class="container-fluid py-4">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800 font-weight-bold">Admin Directory</h1>
+
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle" id="dataTable" width="100%">
+                        <thead class="bg-light text-primary">
+                            <tr>
+                                <th>Profile</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>City</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% allAdmin.forEach((row)=> { %>
+                                <tr>
+                                    <td>
+                                        <img src="/<%= row.profile_image %>"
+                                            style="width:50px; height:50px; border-radius:50%; object-fit:cover;"
+                                            onerror="this.src='/uploads/default-avatar.png'">
+                                    </td>
+                                    <td class="font-weight-bold">
+                                        <%= row.fname %>
+                                            <%= row.lname %>
+                                    </td>
+                                    <td>
+                                        <%= row.email %>
+                                    </td>
+                                    <td>
+                                        <%= row.phone || 'N/A' %>
+                                    </td>
+                                    <td><span class="badge badge-info">
+                                            <%= row.city %>
+                                        </span></td>
+                                    <td>
+                                        <a href="/editAdmin/<%= row._id %>" class="btn btn-sm btn-outline-primary"><i
+                                                class="fas fa-edit"></i></a>
+                                        <a href="/deleteAdmin/<%= row._id %>" class="btn btn-sm btn-outline-danger"
+                                            onclick="return confirm('Delete this admin?')">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../footer')%>
