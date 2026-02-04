@@ -1,24 +1,24 @@
 const express = require('express');
 const path = require('path');
-require("./config/db.config")
+const cookieParser = require('cookie-parser');
+require("./config/db.config");
 
 const app = express();
-
-const PORT = 1000;
+const PORT = 2000;
 
 app.set("view engine" , "ejs");
 
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname , "public")));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.use("/" ,require("./routes/index")); //Route la server sobt attach karla
+app.use("/" ,require("./routes/index")); 
 
 app.listen(PORT , (err)=>{
     if (err) {
-        console.log("Not started....");
-
-        return false;
+        console.log("Not started....",err);
+        return false;  
     }
-    console.log("Started......");
+    console.log("Started on port 2000...");
 })
