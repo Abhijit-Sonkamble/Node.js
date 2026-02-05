@@ -1,14 +1,9 @@
 const express = require('express');
 const route = express.Router();
-const multer = require('multer');
 const { loginPage, checkLogin, logout, forgetPage, verifyEmail, OTPpage, OTPVerify, newPasswordPage, changeNewPassword, dashboardPage, profilePage, changePasswordPage, changePassword, viewAdminPage, addAdminPage, insertAdmin, deleteAdmin, editAdminPage, updateAdmin } = require('../controllers/admin.controller');
 
-// Multer
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, "uploads/profile_img/"),
-    filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname)
-});
-const upload = multer({ storage });
+//Attact Middleware Folder
+const upload = require('../middleware/multer.middleware');
 
 // Login & Logout
 route.get('/', loginPage);
@@ -32,7 +27,7 @@ route.post('/changePassword', changePassword);
 // Admin
 route.get('/viewAdminPage', viewAdminPage);
 route.get('/addAdminPage', addAdminPage);
-route.post('/insertAdmin', upload.single('profile_image'), insertAdmin);
+route.post('/insertAdmin', upload.single("profile_image"), insertAdmin);
 route.get('/deleteAdmin/:adminId',deleteAdmin);
 
 // Edit Admin Routes

@@ -1,0 +1,93 @@
+<%- include('../header')%>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card custom-card">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <h1 class="h3 text-gray-900 font-weight-bold">Edit Admin</h1>
+                            <p class="text-muted">Update the profile details for this administrator</p>
+                        </div>
+
+                        <form action="/updateAdmin/<%= singleAdmin._id %>" method="POST" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-sm-6 mb-3">
+                                    <label class="small font-weight-bold">First Name</label>
+                                    <input type="text" class="form-control form-control-custom" placeholder="First Name"
+                                        name="fname" id="fname" value="<%=singleAdmin.fname%>" required>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label class="small font-weight-bold">Last Name</label>
+                                    <input type="text" class="form-control form-control-custom" placeholder="Last Name"
+                                        name="lname" id="lname" value="<%=singleAdmin.lname%>" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="small font-weight-bold">Email Address</label>
+                                <input type="email" class="form-control form-control-custom"
+                                    placeholder="email@example.com" name="email" id="email"
+                                    value="<%=singleAdmin.email%>" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="small font-weight-bold">Password</label>
+                                <input type="password" class="form-control form-control-custom" placeholder="Password"
+                                    name="password" id="password" value="<%=singleAdmin.password%>" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="small font-weight-bold">Phone Number</label>
+                                <input type="number" class="form-control form-control-custom" name="phone" id="phone"
+                                    value="<%=singleAdmin.phone%>">
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="label-title d-block">Gender</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="m" value="Male"
+                                            <% if(singleAdmin.gender==='Male' ) { %> checked <% } %> required>
+                                            <label class="form-check-label" for="m">Male</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="f" value="Female"
+                                            <% if(singleAdmin.gender==='Female' ) { %> checked <% } %> required>
+                                            <label class="form-check-label" for="f">Female</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="label-title d-block">City</label>
+                                    <select class="form-control form-control-custom" name="city">
+                                        <option value="">Select City</option>
+                                        <% ["Surat", "Pune" , "Nashik" , "Nagpur" , "Mumbai" ].map((city)=> { %>
+                                            <option <% if(singleAdmin.city.trim()===city) { %> selected <% } %> value="
+                                                    <%= city %>">
+                                                        <%= city %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label class="label-title">Profile Image</label>
+                                <div class="mb-2">
+                                    <img src="/<%= singleAdmin.profile_image %>" height="60" class="rounded shadow-sm"
+                                        alt="Profile">
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="profile_image" id="pic">
+                                    <label class="custom-file-label" for="pic">Change photo...</label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-gradient btn-block shadow-sm">Update Admin
+                                Account</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../footer')%>
