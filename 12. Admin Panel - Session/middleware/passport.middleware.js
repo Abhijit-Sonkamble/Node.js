@@ -35,3 +35,29 @@ passport.deserializeUser(async(adminId, done)=>{
 
     return done(null, currentadmin);
 });
+
+//Dusrya page madhe nako jayla mhanun
+passport.checkAuthDone = (req , res , next)=>{
+    console.log("Authentication : ", req.isAuthenticated());
+
+    if ( req.isAuthenticated()) {
+       return next();
+    }
+    return res.redirect("/")
+}
+passport.checkAuthNotDone = (req , res , next)=>{
+    console.log("Authentication : ", req.isAuthenticated());
+
+    if ( !req.isAuthenticated()) {
+       return next();
+    }
+    return res.redirect("/dashboard")
+}
+
+passport.currentAdmin = (req,res,next) => {
+    if(req.isAuthenticated()) {
+        res.locals.admin = req.user;
+    }
+
+    next();
+}

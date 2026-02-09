@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 //Add Session
 const session = require("express-session");
 const passport = require('passport');
-require("./middleware/passport.middleware"); //Passport ki file ko require kiya
+require('./middleware/passport.middleware')
 require("./config/db.config");
 
 const app = express();
@@ -30,8 +30,9 @@ app.use(session({
 }));
 
 //Session require
-app.use(passport.session());
 app.use(passport.initialize());
+app.use(passport.session());
+app.use(passport.currentAdmin);
 
 //Route file insert
 app.use("/" ,require("./routes/index")); 

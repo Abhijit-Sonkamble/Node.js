@@ -2,13 +2,18 @@ const Admin = require("../model/admin.model");
 const fs = require("fs");
 const nodemailer = require("nodemailer");
 
+function removeSession(req,res){
+   req.session.destroy((err)=>{
+    if (!err) {
+      return res.redirect("/");
+    }
+    console.log("controller logout error : " , err);
+  })
+}
+
 // Login Page
 module.exports.loginPage = async (req, res) => {
   try {
-    if (req.cookies.adminId) {
-      const admin = await Admin.findById(req.cookies.adminId);
-      if (admin) return res.redirect("/dashboard");
-    }
     return res.render("auth/login");
   } catch (err) {
     console.log("Error in loginPage:", err);
@@ -34,11 +39,9 @@ module.exports.checkLogin = async (req, res) => {
 
 // Logout
 module.exports.logout = (req, res) => {
-  res.clearCookie("adminId");
-  return res.redirect("/");
+  removeSession(req,res);
 };
 
-// --- DASHBOARD & PROFILE ---
 
 // Dashboard
 module.exports.dashboardPage = async (req, res) => {
@@ -55,9 +58,8 @@ module.exports.dashboardPage = async (req, res) => {
 // Profile Page
 module.exports.profilePage = async (req, res) => {
   try {
-    const admin = await Admin.findById(req.cookies.adminId);
-    if (!admin) return res.redirect("/");
-    return res.render("profile/profilePage", { admin, singleAdmin: admin });
+    const admin = req.user;
+    return res.render("profile/profilePage", { admin });
   } catch (err) {
     console.log("Error in profilePage:", err);
     return res.redirect("/");
@@ -67,26 +69,24 @@ module.exports.profilePage = async (req, res) => {
 // View Admins
 module.exports.viewAdminPage = async (req, res) => {
   try {
-    const admin = await Admin.findById(req.cookies.adminId);
-    if (!admin) return res.redirect("/");
-
+   
     let allAdmin = await Admin.find();
 
-    allAdmin = allAdmin.filter((subadmin) => subadmin.email != admin.email);
+    allAdmin = allAdmin.filter((subadmin) => subadmin.email != res.locals.admin.email);
 
-    return res.render("admin/viewAdmin", { allAdmin, admin });
+    return res.render("admin/viewAdmin", { allAdmin });
   } catch (err) {
     console.log("Error in viewAdminPage:", err);
     return res.redirect("/dashboard");
   }
 };
 
+
+
 // Add Admin Page
 module.exports.addAdminPage = async (req, res) => {
   try {
-    const admin = await Admin.findById(req.cookies.adminId);
-    if (!admin) return res.redirect("/");
-    return res.render("admin/addAdmin", { admin });
+    return res.render("admin/addAdmin");
   } catch (err) {
     console.log("Error in addAdminPage:", err);
     return res.redirect("/dashboard");
@@ -108,16 +108,14 @@ module.exports.insertAdmin = async (req, res) => {
 // Edit Admin Page
 module.exports.editAdminPage = async (req, res) => {
   try {
-    const admin = await Admin.findById(req.cookies.adminId);
-    if (!admin) return res.redirect("/");
-
     const singleAdmin = await Admin.findById(req.params.adminId);
-    return res.render("admin/editAdmin", { admin, singleAdmin });
+    return res.render("admin/editAdmin", {singleAdmin });
   } catch (err) {
     console.log("Error in editAdminPage:", err);
     return res.redirect("/viewAdminPage");
   }
 };
+
 
 // Update Admin Logic
 module.exports.updateAdmin = async (req, res) => {
@@ -142,11 +140,17 @@ module.exports.updateAdmin = async (req, res) => {
       }
       return res.redirect("/viewAdminPage");
     }
+
+    // return (req.params.adminId === req.cookies.adminId)? res.redirect("/profilePage") : res.redirect("/viewAdmin") work nhi kar raha
+
+
   } catch (err) {
     console.error("Update Error:", err);
     return res.redirect("/viewAdminPage");
   }
 };
+
+//Delete
 module.exports.deleteAdmin = async (req, res) => {
   try {
     // Change from .query to .params
@@ -167,13 +171,11 @@ module.exports.deleteAdmin = async (req, res) => {
   }
 };
 
-// --- PASSWORD SETTINGS (LOGGED IN) ---
+// --- Password ---
 
 module.exports.changePasswordPage = async (req, res) => {
   try {
-    const admin = await Admin.findById(req.cookies.adminId);
-    if (!admin) return res.redirect("/");
-    return res.render("profile/changePassword", { admin });
+    return res.render("profile/changePassword");
   } catch (err) {
     return res.redirect("/dashboard");
   }
@@ -181,7 +183,10 @@ module.exports.changePasswordPage = async (req, res) => {
 
 module.exports.changePassword = async (req, res) => {
   try {
-    const admin = await Admin.findById(req.cookies.adminId);
+
+    let admin = res.locals.admin;
+
+   console.log(req.body)
     const { current_psw, new_psw, confirm_psw } = req.body;
 
     if (current_psw === new_psw) {
@@ -198,22 +203,29 @@ module.exports.changePassword = async (req, res) => {
       return res.redirect("/changePasswordPage");
     }
 
-    await Admin.findByIdAndUpdate(admin._id, { password: new_psw });
-    res.clearCookie("adminId");
-    return res.redirect("/");
-  } catch (err) {
-    console.log("Error in changePassword:", err);
-    return res.redirect("/dashboard");
-  }
+const adminChangePassword = await Admin.findByIdAndUpdate(admin._id, { password: new_psw }, { new: true });
+
+        if (adminChangePassword) {
+            console.log("Password changed...");
+            console.log("Session Remove");
+
+            removeSession(req, res);
+        } else {
+            console.log("Password not changed...");
+            return res.redirect('/dashboard');
+        }
+
+    } catch (err) {
+        console.log("Something went wrong");
+        console.log("Error : ", err);
+        return res.redirect('/');
+    }  
 };
 
-// --- FORGOT PASSWORD (OTP FLOW) ---
+// --- Forgot Password ---
 
 module.exports.forgetPage = (req, res) => {
-  if(!req.cookies.adminId) {
-    return res.render("auth/forgetPage");
-  }
-  return res.redirect('/dashboard');
+  return res.render('auth/forgetPage');
 }
 
 module.exports.verifyEmail = async (req, res) => {
@@ -227,12 +239,45 @@ module.exports.verifyEmail = async (req, res) => {
       auth: { user: "thelearner1326@gmail.com", pass: "gszcimhtutgtobnf" },
     });
 
-    await transporter.sendMail({
-      from: "Admin Panel",
-      to: req.body.email,
-      subject: "OTP Verification",
-      html: `<h3>Your OTP is: ${OTP}</h3>`,
-    });
+    //Admin otp
+
+   await transporter.sendMail({
+  from: '"Admin Panel Support" <thelearner1326@gmail.com>', 
+  to: req.body.email,
+  subject: "🔐 OTP Verification Code",
+  html: `
+    <div style="font-family: 'Nunito', sans-serif; background-color: #f8f9fc; padding: 40px 0; color: #333;">
+        <div style="max-width: 500px; margin: 0 auto; background: #ffffff; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            
+            <div style="background: linear-gradient(135deg, #4e73df 0%, #224abe 100%); padding: 30px; text-align: center;">
+                <h1 style="color: white; margin: 0; font-size: 24px; letter-spacing: 1px;">Admin Panel</h1>
+            </div>
+
+            <div style="padding: 40px 30px; text-align: center;">
+                <h2 style="color: #4e73df; margin-bottom: 20px;">Verify Your Identity</h2>
+                <p style="font-size: 16px; color: #858796; line-height: 1.6;">
+                    Hello Admin,<br>
+                    Use the verification code below to reset your password. This OTP is valid for a limited time.
+                </p>
+
+                <div style="margin: 35px 0; padding: 20px; background: #f8f9fc; border: 2px dashed #d1d3e2; border-radius: 10px;">
+                    <span style="font-size: 36px; font-weight: 800; letter-spacing: 8px; color: #2e59d9;">${OTP}</span>
+                </div>
+
+                <p style="font-size: 13px; color: #b7b9cc;">
+                    If you didn't request this, please ignore this email or contact security.
+                </p>
+            </div>
+
+            <div style="background: #f8f9fc; padding: 20px; text-align: center; border-top: 1px solid #e3e6f0;">
+                <p style="margin: 0; font-size: 12px; color: #858796;">
+                    &copy; 2026 Admin Panel System. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </div>
+  `,
+});
 
     res.cookie("OTP", OTP);
     res.cookie("Id", admin._id);
@@ -269,13 +314,12 @@ module.exports.changeNewPassword = async (req, res) => {
 
     if (new_password !== confirm_password)
       return res.redirect("/newPasswordPage");
-
     await Admin.findByIdAndUpdate(req.cookies.Id, {
       password: new_password,
     });
 
     res.clearCookie("Id");
-    return res.redirect("/"); // ✅ LOGIN PAGE
+    return res.redirect("/");   
   } catch (err) {
     console.log(err);
     return res.redirect("/");

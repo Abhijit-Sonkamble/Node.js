@@ -7,35 +7,37 @@ const { loginPage, checkLogin, logout, forgetPage, verifyEmail, OTPpage, OTPVeri
 const upload = require('../middleware/multer.middleware');
 
 // Login & Logout
-route.get('/', loginPage);
-route.post('/login', passport.authenticate("localAuth"/*change kele tr ithe pn dyave lagel nahitr local cha name rahil */
+route.get('/', passport.checkAuthNotDone,loginPage);
+route.post('/login',passport.checkAuthNotDone, passport.authenticate("localAuth"/*change kele tr ithe pn dyave lagel nahitr local cha name rahil */
     ,{
     failureRedirect : "/"
 }),checkLogin);
 route.get('/logout', logout);
 
 // Forgot Password / OTP Flow
-route.get('/forgetPage', forgetPage);
+route.get('/forgetPage',passport.checkAuthNotDone, forgetPage);
 route.post('/verify-email', verifyEmail);
-route.get('/otp-page', OTPpage);
-route.post('/otpVerify', OTPVerify);
-route.get('/newPasswordPage', newPasswordPage);
-route.post('/change-new-password', changeNewPassword);
+route.get('/otp-page', passport.checkAuthNotDone, OTPpage);
+route.post('/otpVerify',passport.checkAuthNotDone, OTPVerify);
+route.get('/newPasswordPage',passport.checkAuthNotDone, newPasswordPage);
+route.post('/change-new-password', passport.checkAuthNotDone, changeNewPassword);
 
 // Dashboard & Profile
-route.get('/dashboard', dashboardPage);
-route.get('/profile', profilePage);
-route.get('/changePasswordPage', changePasswordPage);
-route.post('/changePassword', changePassword);
+route.get('/dashboard',passport.checkAuthDone, dashboardPage);
+route.get('/profile', passport.checkAuthDone,profilePage);
+route.get('/changePasswordPage', passport.checkAuthDone, changePasswordPage);
+route.post('/changePassword', passport.checkAuthDone, changePassword);
 
 // Admin
-route.get('/viewAdminPage', viewAdminPage);
-route.get('/addAdminPage', addAdminPage);
-route.post('/insertAdmin', upload.single("profile_image"), insertAdmin);
-route.get('/deleteAdmin/:adminId',deleteAdmin);
+route.get('/viewAdminPage',passport.checkAuthDone, viewAdminPage);
+route.get('/addAdminPage', passport.checkAuthDone,addAdminPage);
+route.post('/insertAdmin', passport.checkAuthDone,upload.single("profile_image"), insertAdmin);
+
+//Delete 
+route.get('/deleteAdmin/:adminId',passport.checkAuthDone,deleteAdmin);
 
 // Edit Admin Routes
-route.get('/editAdmin/:adminId', editAdminPage);
-route.post('/updateAdmin/:adminId', upload.single('profile_image'), updateAdmin);
+route.get('/editAdmin/:adminId',passport.checkAuthDone, editAdminPage);
+route.post('/updateAdmin/:adminId', passport.checkAuthDone, upload.single('profile_image'), updateAdmin);
 
 module.exports = route;
