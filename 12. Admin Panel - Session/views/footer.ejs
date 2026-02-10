@@ -7,11 +7,35 @@
 </footer>
 </div>
 </div>
-<script src="/vendor/jquery/jquery.min.js"></script>
-<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="/js/sb-admin-2.min.js"></script>
-<script src="/vendor/chart.js/Chart.min.js"></script>
+<script src="../../vendor/jquery/jquery.min.js"></script>
+<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="../../js/sb-admin-2.min.js"></script>
+<script src="../../vendor/chart.js/Chart.min.js"></script>
+
+<!-- sweet alert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.18/dist/sweetalert2.all.min.js"></script>
+
+
+<script>
+
+    if (<%= locals.flash.success !== "" && locals.flash.success.length > 0 %>) {
+        Swal.fire({
+            title: "Success 😂!",
+            text: "<%= locals.flash.success %>",
+            icon: "success"
+        });
+    }
+    if (<%= locals.flash.error !== "" && locals.flash.error.length > 0 %>) {
+        Swal.fire({
+            title: "Error 🥱!",
+            text: "<%= locals.flash.error %>",
+            icon: "error"
+        });
+    }
+</script>
+
+
 </body>
 
 </html>

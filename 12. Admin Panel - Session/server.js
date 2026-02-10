@@ -4,6 +4,10 @@ const cookieParser = require('cookie-parser');
 //Add Session
 const session = require("express-session");
 const passport = require('passport');
+
+//Falsh message require
+const flash = require("connect-flash")
+const { SetFlash } = require('./middleware/connectFlash');
 require('./middleware/passport.middleware')
 require("./config/db.config");
 
@@ -17,7 +21,7 @@ app.use(express.static(path.join(__dirname , "public")));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(cookieParser());
-//Session add
+//Session add 
 app.use(session({
     name:"AdminPanelWithSession",
     secret:"Abhijit@1234", //Do not share
@@ -29,10 +33,15 @@ app.use(session({
     }
 }));
 
+//Flash 
+app.use(flash());
+
 //Session require
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.currentAdmin);
+
+app.use(SetFlash);
 
 //Route file insert
 app.use("/" ,require("./routes/index")); 

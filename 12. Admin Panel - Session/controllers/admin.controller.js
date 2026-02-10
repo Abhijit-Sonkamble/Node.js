@@ -24,6 +24,7 @@ module.exports.loginPage = async (req, res) => {
 // Login Logic
 module.exports.checkLogin = async (req, res) => {
   try {
+     req.flash('success', "Admin Login Successfully..");
     const admin = await Admin.findOne({ email: req.body.email });
     if (!admin || admin.password !== req.body.password) {
       console.log("Invalid Email or Password");
@@ -32,6 +33,7 @@ module.exports.checkLogin = async (req, res) => {
     res.cookie("adminId", admin._id);
     return res.redirect("/dashboard");
   } catch (err) {
+    req.flash('error', "Admin Login Failed..");
     console.log("Error in checkLogin:", err);
     return res.redirect("/");
   }
@@ -46,9 +48,7 @@ module.exports.logout = (req, res) => {
 // Dashboard
 module.exports.dashboardPage = async (req, res) => {
   try {
-    const admin = await Admin.findById(req.cookies.adminId);
-    if (!admin) return res.redirect("/");
-    return res.render("dashboard", { admin });
+    return res.render("dashboard");
   } catch (err) {
     console.log("Error in dashboardPage:", err);
     return res.redirect("/");
@@ -96,10 +96,23 @@ module.exports.addAdminPage = async (req, res) => {
 // Insert Admin Logic
 module.exports.insertAdmin = async (req, res) => {
   try {
-    if (req.file) req.body.profile_image = req.file.path;
-    await Admin.create(req.body);
-    return res.redirect("/viewAdminPage");
+    console.log(req.file);
+  req.body.profile_image = req.file.path;
+   const addAdmin =  await Admin.create(req.body);
+
+  // Flash Message
+  if(addAdmin){
+    req.flash('success', "Add admin successfully....")
+    console.log("Add admin successfully....");
+  }
+  else{
+     req.flash('error', "Admin not Add....")
+    console.log("Admin not Add....");
+    
+  }
+    return res.redirect("/addAdminPage");
   } catch (err) {
+    req.flash('error', "Something went wrong....")
     console.log("Error in insertAdmin:", err);
     return res.redirect("/addAdminPage");
   }
@@ -241,7 +254,7 @@ module.exports.verifyEmail = async (req, res) => {
 
     //Admin otp
 
-   await transporter.sendMail({
+  await transporter.sendMail({
   from: '"Admin Panel Support" <thelearner1326@gmail.com>', 
   to: req.body.email,
   subject: "🔐 OTP Verification Code",
