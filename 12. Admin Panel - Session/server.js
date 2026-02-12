@@ -12,7 +12,7 @@ require('./middleware/passport.middleware')
 require("./config/db.config");
 
 const app = express();
-const PORT = 4000;
+const PORT = 1000;
 
 app.set("view engine" , "ejs");
 

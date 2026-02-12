@@ -17,11 +17,11 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <% if(locals.flash.success !="" && locals.flash.success.length> 0) {%>
+                    <!-- <% if(locals.flash.success !="" && locals.flash.success.length> 0) {%>
                         <div class="alert alert-success">
                             <%= locals.flash.success %>
                         </div>
-                        <% }%>
+                        <% }%> -->
 
                             <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
@@ -354,9 +354,19 @@
         <%- include('footer')%>
 
             <script>
-                Swal.fire({
-                    title: "Welcome!",
-                    text: "<%= locals.flash.success %>",
-                    icon: "success"
-                });
+                if (<%=locals.flash.success != "" && locals.flash.success.length  > 0 %>) {
+                    Swal.fire({
+                        title: "Welcome!",
+                        text: "<%= locals.flash.success %>",
+                        icon: "success"
+                    });
+                };
+
+                     if (<%=locals.flash.error != "" && locals.flash.error.length  > 0 %>) {
+                    Swal.fire({
+                        title: "Error...!",
+                        text: "<%= locals.flash.success %>",
+                        icon: "error"
+                    });
+                }
             </script>

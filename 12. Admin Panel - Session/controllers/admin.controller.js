@@ -166,10 +166,14 @@ module.exports.updateAdmin = async (req, res) => {
 //Delete
 module.exports.deleteAdmin = async (req, res) => {
   try {
+
+    
     // Change from .query to .params
     const { adminId } = req.params;
-
     const deletedUser = await Admin.findByIdAndDelete(adminId);
+    
+    //Flashh msg
+    req.flash("success", `${deletedUser.fname}  Deleted succefully`);
 
     if (deletedUser && deletedUser.profile_image) {
       // Delete the image file from the server
