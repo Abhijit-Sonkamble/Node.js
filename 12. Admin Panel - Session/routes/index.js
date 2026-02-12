@@ -1,7 +1,7 @@
 const express = require('express');
-const passport = require("passport")
+const passport = require("passport");
 const route = express.Router();
-const { loginPage, checkLogin, logout, forgetPage, verifyEmail, OTPpage, OTPVerify, newPasswordPage, changeNewPassword, dashboardPage, profilePage, changePasswordPage, changePassword, viewAdminPage, addAdminPage, insertAdmin, deleteAdmin, editAdminPage, updateAdmin } = require('../controllers/admin.controller');
+const { loginPage, checkLogin, logout, forgetPage, verifyEmail, OTPpage, OTPVerify, newPasswordPage, changeNewPassword, dashboardPage, profilePage, changePasswordPage, changePassword } = require('../controllers/admin.controller');
 
 //Attact Middleware Folder
 const upload = require('../middleware/multer.middleware');
@@ -28,16 +28,12 @@ route.get('/profile', passport.checkAuthDone,profilePage);
 route.get('/changePasswordPage', passport.checkAuthDone, changePasswordPage);
 route.post('/changePassword', passport.checkAuthDone, changePassword);
 
-// Admin
-route.get('/viewAdminPage',passport.checkAuthDone, viewAdminPage);
-route.get('/addAdminPage', passport.checkAuthDone,addAdminPage);
-route.post('/insertAdmin', passport.checkAuthDone,upload.single("profile_image"), insertAdmin);
 
-//Delete 
-route.get('/deleteAdmin/:adminId',passport.checkAuthDone,deleteAdmin);
 
-// Edit Admin Routes
-route.get('/editAdmin/:adminId',passport.checkAuthDone, editAdminPage);
-route.post('/updateAdmin/:adminId', passport.checkAuthDone, upload.single('profile_image'), updateAdmin);
+//Category require
+route.use("/category" ,passport.checkAuthDone, require("./category.route"));
+
+//Admin Route Page
+route.use("/admin", passport.checkAuthDone, require("./admin.route"))
 
 module.exports = route;

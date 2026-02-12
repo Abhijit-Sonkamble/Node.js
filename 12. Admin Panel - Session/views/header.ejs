@@ -16,7 +16,7 @@
     <!-- Sweet Alert -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.18/dist/sweetalert2.min.css" rel="stylesheet">
 
-   
+
 
     <style>
         :root {
@@ -75,11 +75,27 @@
             <div class="sidebar-heading">Management</div>
             <li class="nav-item"><a class="nav-link" href="/profile"><i class="fas fa-fw fa-user"></i> <span>My
                         Profile</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="/viewAdminPage"><i class="fas fa-fw fa-table"></i> <span>View
+            <li class="nav-item"><a class="nav-link" href="/admin/viewAdminPage"><i class="fas fa-fw fa-table"></i> <span>View
                         Admin</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="/addAdminPage"><i class="fas fa-fw fa-plus"></i> <span>Add
+            <li class="nav-item"><a class="nav-link" href="/admin/addAdminPage"><i class="fas fa-fw fa-plus"></i> <span>Add
                         Admin</span></a></li>
 
+            <!-- Product -->
+            <div class="sidebar-heading">Product</div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/category/addCategoryPage">
+                    <i class="fas fa-fw fa-plus-square"></i>
+                    <span>Add Product</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/category/viewCategoryPage">
+                    <i class="fas fa-fw fa-boxes"></i>
+                    <span>View Product</span>
+                </a>
+            </li>
         </ul>
 
         <div id="content-wrapper" class="d-flex flex-column">
@@ -253,7 +269,7 @@
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                                     <%= admin.fname + " " + admin.lname%>
                                 </span>
-                                <img class="img-profile rounded-circle" src="<%= admin.profile_image %>">
+                                <img class="img-profile rounded-circle" src="../../<%= admin.profile_image %>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

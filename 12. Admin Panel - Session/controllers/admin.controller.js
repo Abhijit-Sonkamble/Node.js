@@ -110,11 +110,11 @@ module.exports.insertAdmin = async (req, res) => {
     console.log("Admin not Add....");
     
   }
-    return res.redirect("/addAdminPage");
+    return res.redirect("/admin/addAdminPage");
   } catch (err) {
     req.flash('error', "Something went wrong....")
     console.log("Error in insertAdmin:", err);
-    return res.redirect("/addAdminPage");
+    return res.redirect("/admin/addAdminPage");
   }
 };
 
@@ -125,7 +125,7 @@ module.exports.editAdminPage = async (req, res) => {
     return res.render("admin/editAdmin", {singleAdmin });
   } catch (err) {
     console.log("Error in editAdminPage:", err);
-    return res.redirect("/viewAdminPage");
+    return res.redirect("/admin/viewAdminPage");
   }
 };
 
@@ -149,17 +149,17 @@ module.exports.updateAdmin = async (req, res) => {
     } else {
       const updateAdmin = await Admin.findByIdAndUpdate(req.params.adminId, req.body,{ new: true } );
       if (!updateAdmin) {
-        return res.redirect("/viewAdminPage");
+        return res.redirect("/admin/viewAdminPage");
       }
-      return res.redirect("/viewAdminPage");
+      return res.redirect("/admin/viewAdminPage");
     }
 
-    // return (req.params.adminId === req.cookies.adminId)? res.redirect("/profilePage") : res.redirect("/viewAdmin") work nhi kar raha
+    // return (req.params.adminId === req.cookies.adminId)? res.redirect("/profilePage") : res.redirect("/admin/viewAdmin") work nhi kar raha
 
 
   } catch (err) {
     console.error("Update Error:", err);
-    return res.redirect("/viewAdminPage");
+    return res.redirect("/admin/viewAdminPage");
   }
 };
 
@@ -171,7 +171,7 @@ module.exports.deleteAdmin = async (req, res) => {
     // Change from .query to .params
     const { adminId } = req.params;
     const deletedUser = await Admin.findByIdAndDelete(adminId);
-    
+
     //Flashh msg
     req.flash("success", `${deletedUser.fname}  Deleted succefully`);
 
@@ -181,10 +181,10 @@ module.exports.deleteAdmin = async (req, res) => {
         if (err) console.log("Fs-unlink error:", err);
       });
     }
-    return res.redirect("/viewAdminPage");
+    return res.redirect("/admin/viewAdminPage");
   } catch (err) {
     console.error("Delete Error:", err);
-    return res.redirect("/viewAdminPage");
+    return res.redirect("/admin/viewAdminPage");
   }
 };
 

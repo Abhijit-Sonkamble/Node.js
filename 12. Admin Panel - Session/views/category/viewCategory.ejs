@@ -43,12 +43,12 @@
             <td>
                 <% if(admin.id === "697b97669a0ab2919ae18504") { %>
                     <div class="d-flex align-items-center" style="gap: 8px;">
-                        <a href="/admin/editAdmin/<%= row._id %>" 
+                        <a href="/editAdmin/<%= row._id %>" 
                            class="btn btn-sm btn-primary shadow-sm" 
                            title="Edit">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a href="/admin/deleteAdmin/<%= row._id %>" 
+                        <a href="/deleteAdmin/<%= row._id %>" 
                            class="btn btn-sm btn-danger shadow-sm"
                            onclick="return confirm('Delete this admin?')" 
                            title="Delete">
