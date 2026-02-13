@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require("passport");
 const route = express.Router();
-const { loginPage, checkLogin, logout, forgetPage, verifyEmail, OTPpage, OTPVerify, newPasswordPage, changeNewPassword, dashboardPage, profilePage, changePasswordPage, changePassword } = require('../controllers/admin.controller');
+const { loginPage, checkLogin, logout, forgetPage, verifyEmail, OTPpage, OTPVerify, newPasswordPage, changeNewPassword, dashboardPage,  changePasswordPage, changePassword } = require('../controllers/admin.controller');
 
 //Attact Middleware Folder
 const upload = require('../middleware/multer.middleware');
@@ -24,7 +24,6 @@ route.post('/change-new-password', passport.checkAuthNotDone, changeNewPassword)
 
 // Dashboard & Profile
 route.get('/dashboard',passport.checkAuthDone, dashboardPage);
-route.get('/profile', passport.checkAuthDone,profilePage);
 route.get('/changePasswordPage', passport.checkAuthDone, changePasswordPage);
 route.post('/changePassword', passport.checkAuthDone, changePassword);
 

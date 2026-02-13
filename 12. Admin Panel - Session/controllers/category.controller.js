@@ -4,7 +4,7 @@ const categoryModel = require("../model/category.model")
 
 // Add Admin
 module.exports.addCategoryPage = (req,res)=>{
-    return res.render("category/addCategory")
+    return res.render("category/addCategory") //Yat file name yete aani render madhe file
 }
 
 
@@ -32,7 +32,7 @@ module.exports.addCategory = async(req, res)=>{
     } catch (err) {
       req.flash('error', "Something went wrong....")
       console.log("Error in insertCategory:", err);
-      return res.redirect("/category/addCategoryPage");
+      return res.redirect("/category/addCategoryPage"); //he route aahe aani route madhe redirect hote
     }  
 
     
