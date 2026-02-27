@@ -1,8 +1,9 @@
+require("dotenv").config();
 //Attachement of mongoose
 const mongoose = require("mongoose");
 
 //Attachement of mongo URL
-const URL = ("mongodb://localhost:27017/Footwear")
+const URL = process.env.Atlas_link
 
 mongoose.connect(URL).then(()=>{
     //Then he use kele nahi tri chalte pn connected zale ki nahi te kalte....

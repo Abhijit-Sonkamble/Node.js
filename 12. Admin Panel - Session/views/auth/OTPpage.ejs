@@ -66,6 +66,10 @@
         .text-muted {
             font-size: 14px;
         }
+
+        body.swal2-height-auto {
+            height: 0% !important;
+        }
     </style>
 </head>
 
@@ -81,12 +85,8 @@
 
         <form action="/otpVerify" method="POST">
             <div class="form-group">
-                <input type="text"
-                       name="adminOTP"
-                       class="form-control otp-input"
-                       maxlength="6"
-                       placeholder="______"
-                       required>
+                <input type="text" name="adminOTP" class="form-control otp-input" maxlength="6" placeholder="______"
+                    required>
             </div>
 
             <button type="submit" class="btn btn-primary btn-block btn-verify">
@@ -95,5 +95,28 @@
         </form>
     </div>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.18/dist/sweetalert2.all.min.js"></script>
+
+
+    <script>
+
+        if (<%= locals.flash.success !== "" && locals.flash.success.length > 0 %>) {
+            Swal.fire({
+                title: "Success...!",
+                text: "<%= locals.flash.success %>",
+                icon: "success"
+            });
+        }
+        if (<%= locals.flash.error !== "" && locals.flash.error.length > 0 %>) {
+            Swal.fire({
+                title: "Error..!",
+                text: "<%= locals.flash.error %>",
+                icon: "error"
+            });
+        }
+    </script>
+
 </body>
+
 </html>

@@ -46,9 +46,9 @@ passport.checkAuthDone = (req , res , next)=>{
     return res.redirect("/")
 }
 passport.checkAuthNotDone = (req , res , next)=>{
-    console.log("Authentication : ", req.isAuthenticated());
+    console.log("Not done   Authentication : ", req.isAuthenticated());
 
-    if ( !req.isAuthenticated()) {
+    if (!req.isAuthenticated()) {
        return next();
     }
     return res.redirect("/dashboard")

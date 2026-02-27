@@ -16,7 +16,7 @@ route.get('/logout', logout);
 
 // Forgot Password / OTP Flow
 route.get('/forgetPage',passport.checkAuthNotDone, forgetPage);
-route.post('/verify-email', verifyEmail);
+route.post('/verify-email', passport.checkAuthNotDone,verifyEmail);
 route.get('/otp-page', passport.checkAuthNotDone, OTPpage);
 route.post('/otpVerify',passport.checkAuthNotDone, OTPVerify);
 route.get('/newPasswordPage',passport.checkAuthNotDone, newPasswordPage);
@@ -33,6 +33,9 @@ route.post('/changePassword', passport.checkAuthDone, changePassword);
 route.use("/category" ,passport.checkAuthDone, require("./category.route"));
 
 //Admin Route Page
-route.use("/admin", passport.checkAuthDone, require("./admin.route"))
+route.use("/admin", passport.checkAuthDone, require("./admin.route"));
+
+//Sub category page
+route.use("/subCategory", passport.checkAuthDone, require("./subCategory.route"));
 
 module.exports = route;

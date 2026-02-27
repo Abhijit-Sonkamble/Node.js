@@ -1,0 +1,56 @@
+<%- include('../header') %>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-7">
+                <div class="card shadow-sm border-0 rounded-lg">
+                    <div class="card-body p-5">
+
+                        <div class="text-center mb-4">
+                            <h2 class="h4 text-dark font-weight-bold">Add New Sub Category</h2>
+                            <p class="text-muted small">Select a parent category and name your subcategory</p>
+                        </div>
+
+                        <form action="/subCategory/addSubCategory" method="POST">
+
+                            <div class="form-group mb-4">
+                                <label class="small font-weight-bold text-uppercase text-muted">Sub Category
+                                    Name</label>
+                                <input type="text" class="form-control" name="SubCategory_name" placeholder="Enter name"
+                                    required>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label class="small font-weight-bold text-uppercase text-muted">Parent Category</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white"><i
+                                                class="fas fa-layer-group text-primary"></i></span>
+                                    </div>
+                                    <select class="form-control custom-select" name="category_id" required>
+                                        <option value="">Select Category</option>
+
+                                        <% allCategory.map((category)=> { %>
+                                            <option value="<%=category.id %>">
+                                                <%= category.category_name%>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-primary btn-block shadow-sm py-2 font-weight-bold">
+                                    <i class="fas fa-plus mr-2"></i> Add SubCategory
+                                </button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../footer') %>

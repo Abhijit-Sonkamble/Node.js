@@ -67,7 +67,7 @@ module.exports.deleteCategory = async (req, res) => {
       return res.redirect("/category/viewCategoryPage");
     }
 
-    if (deletedCategory.profile_image) {
+    if (deletedCategory.category_image) {
       fs.unlink(deletedCategory.category_image, (err) => {
         if (err) console.log("Fs-unlink error:", err);
       });
