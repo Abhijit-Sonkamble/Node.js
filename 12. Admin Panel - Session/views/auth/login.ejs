@@ -45,20 +45,23 @@
     </div>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
-        Toastify({
-            text: "User name or password incorrect...!",
-            duration: 1000,
-            destination: "https://github.com/apvarun/toastify-js",
-            newWindow: true,
-            close: true,
-            gravity: "top", // `top` or `bottom`
-            position: "left", // `left`, `center` or `right`
-            stopOnFocus: true, // Prevents dismissing of toast on hover
-            style: {
-                background: "red",
-            },
-            onClick: function () { } // Callback after click
-        }).showToast();
+        // if (err) {
+            Toastify({
+                text: "User name or password incorrect...!",
+                duration: 1000,
+                destination: "https://github.com/apvarun/toastify-js",
+                newWindow: true,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "left", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                style: {
+                    background: "red",
+                },
+                onClick: function () { } // Callback after click
+            }).showToast();
+        // }
+
     </script>
 </body>
 

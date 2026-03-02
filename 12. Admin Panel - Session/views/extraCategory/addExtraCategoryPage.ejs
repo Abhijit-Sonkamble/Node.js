@@ -1,0 +1,139 @@
+<%- include('../header') %>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-7">
+                <div class="card shadow-sm border-0 rounded-lg">
+                    <div class="card-body p-5">
+
+                        <div class="text-center mb-4">
+                            <h2 class="h4 text-dark font-weight-bold">Add New Extra Category</h2>
+                            <p class="text-muted small">Select a parent category and name your extracategory</p>
+                        </div>
+
+                        <form action="/extraCategory/addExtraCategory" method="POST">
+
+                            <!-- Category Select -->
+                            <div class="form-group mb-4">
+                                <label class="small font-weight-bold text-uppercase text-muted">Parent Category</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white"><i
+                                                class="fas fa-layer-group text-primary"></i></span>
+                                    </div>
+                                    <select class="form-control custom-select" name="category_id" id="category_id"
+                                        required>
+                                        <option value="">Select Category</option>
+
+                                        <% allCategory.map((category)=> { %>
+                                            <option value="<%=category.id %>">
+                                                <%= category.category_name%>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Sub Category -->
+                            <div class="form-group mb-4">
+                                <label class="small font-weight-bold text-uppercase text-muted">Sub Category</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white"><i
+                                                class="fas fa-layer-group text-primary"></i></span>
+                                    </div>
+                                    <select class="form-control custom-select" name="subCategory_id" id="subCategory_id"
+                                        required>
+                                        <option value="">Select SubCategory</option>
+
+                                        <% allSubCategory.map((subCategory)=> { %>
+                                            <option value="<%=subCategory.id %>">
+                                                <%= subCategory.SubCategory_name%>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label class="small font-weight-bold text-uppercase text-muted">Extra Category
+                                    Name</label>
+                                <input type="text" class="form-control" name="extraCategory_name" placeholder="Enter name"
+                                    required>
+                            </div>
+
+
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-primary btn-block shadow-sm py-2 font-weight-bold">
+                                    <i class="fas fa-plus mr-2"></i> Add SubCategory
+                                </button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Your Website 2026</span>
+            </div>
+        </div>
+    </footer>
+    </div>
+    </div>
+    <script src="../../vendor/jquery/jquery.min.js"></script>
+    <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../../js/sb-admin-2.min.js"></script>
+    <script src="../../vendor/chart.js/Chart.min.js"></script>
+
+    <!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.18/dist/sweetalert2.all.min.js"></script>
+
+
+    <script>
+
+        if (<%= locals.flash.success !== "" && locals.flash.success.length > 0 %>) {
+            Swal.fire({
+                title: "Success...!",
+                text: "<%= locals.flash.success %>",
+                icon: "success"
+            });
+        }
+        if (<%= locals.flash.error !== "" && locals.flash.error.length > 0 %>) {
+            Swal.fire({
+                title: "Error..!",
+                text: "<%= locals.flash.error %>",
+                icon: "error"
+            });
+        }
+    </script>
+
+    <script>
+        const subCategoryField = document.getElementById("subCategory_id");
+        const allSubCategoryData = <%-JSON.stringify(allSubCategory) %>
+
+            document.getElementById("category_id").addEventListener("change", (e) => {
+
+                const filterSubCategory = allSubCategoryData.filter((subCategory) => subCategory.category_id === e.target.value);
+
+                subCategoryField.innerHTML = "<option value=''>Select SubCategory</option>";
+
+                filterSubCategory.forEach(element => {
+                    subCategoryField.innerHTML += `<option value="${element._id}">
+                                                ${element.SubCategory_name}
+                                            </option>`
+                });
+
+            });
+    </script>
+
+
+    </body>
+
+    </html>

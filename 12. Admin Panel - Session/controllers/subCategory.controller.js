@@ -37,12 +37,76 @@ module.exports.viewSubCategoryPage =  async(req, res)=>{
   try {
     let allSubcategory = await SubCategoryModel.find().populate('category_id', "category_name category_image");//Populate uses
     console.log(allSubcategory)
-    // allSubcategory = allSubcategory.filter(
-    //   (subadmin) => subadmin.email != res.locals.admin.email,
-    // );
     return res.render("subCategory/viewSubCategoryPage", { allSubcategory });
   } catch (err) {
     req.flash("error", "Unable to fetch admins");
     return res.redirect("/dashboard");
   }
 }
+
+//Edit Subcategory
+module.exports.editSubCategory = async(req , res)=>{
+    try{
+        const { subCategoryId } = req.params;
+        const subCategory = await SubCategoryModel.findById(subCategoryId).populate('category_id');
+
+        const allCategory = await categoryModel.find();
+        return res.render("subCategory/editSubCategoryPage" , {subCategory,allCategory})
+    } catch (err) {
+    req.flash("error","edit Failed");
+    return res.redirect("/subCategory/viewSubCategoryPage");
+  }
+
+}
+
+//Update SubCategory
+module.exports.updateSubCategory = async(req, res)=>{
+      try {
+
+          console.log(req.params);
+          console.log(req.body);
+
+
+            const updateCategory = await SubCategoryModel.findByIdAndUpdate(req.params.subCategoryId, req.body);
+
+            if (updateCategory) {
+                req.flash("success", "Updated Successfully...")
+            }
+
+            else{
+                req.flash("error", "Update failed...")
+            }
+           return res.redirect("/subCategory/viewSubCategoryPage");
+      } catch (err) {
+         req.flash("error", "Not Edit successfully");
+        return res.redirect("/subCategory/viewSubCategoryPage");
+      }
+}
+
+//Delete SubCategory
+
+module.exports.deleteSubcategory = async (req, res) => {
+  try {
+
+    const { subCategoryId } = req.params;
+    const deletedSubCategory = await SubCategoryModel.findByIdAndDelete(subCategoryId);
+
+    if(!deletedSubCategory){
+      req.flash("error","Not deleted successfull");
+      return res.redirect("/subCategory/viewSubCategoryPage");
+    }
+
+    // if (deletedSubCategory.category_image) {
+    //   fs.unlink(deletedSubCategory.category_image, (err) => {
+    //     if (err) console.log("Fs-unlink error:", err);
+    //   });
+    // }
+
+    req.flash("success", `${deletedSubCategory.category_name} Deleted successfully`);
+   return res.redirect("/subCategory/viewSubCategoryPage");
+
+  } catch (err) {
+    req.flash("error","Delete Failed");
+    return res.redirect("/subCategory/viewSubCategoryPage");
+  }
+};

@@ -80,41 +80,48 @@
             <li class="nav-item"><a class="nav-link" href="/admin/addAdminPage"><i class="fas fa-fw fa-plus"></i> <span>Add
                         Admin</span></a></li>
 
-            <!-- Category -->
-            <div class="sidebar-heading">Category</div>
+          <!-- Category -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#categoryMenu">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Category</span>
+    </a>
+    <div id="categoryMenu" class="collapse">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="/category/addCategoryPage">Add Category</a>
+            <a class="collapse-item" href="/category/viewCategoryPage">View Category</a>
+        </div>
+    </div>
+</li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/category/addCategoryPage">
-                    <i class="fas fa-fw fa-plus-square"></i>
-                    <span>Add Category</span>
-                </a>
-            </li>
+<!-- Sub Category -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#subCategoryMenu">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Sub Category</span>
+    </a>
+    <div id="subCategoryMenu" class="collapse">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="/subCategory/addSubCategoryPage">Add Sub Category</a>
+            <a class="collapse-item" href="/subCategory/viewSubCategoryPage">View Sub Category</a>
+        </div>
+    </div>
+</li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/category/viewCategoryPage">
-                    <i class="fas fa-fw fa-boxes"></i>
-                    <span>View Category</span>
-                </a>
-            </li>
-
-
-            <!-- Sub Category -->
-            <div class="sidebar-heading">Sub Category</div>
-
-            <li class="nav-item">
-                <a class="nav-link" href="/subCategory/addSubCategoryPage">
-                    <i class="fas fa-fw fa-plus-square"></i>
-                    <span>Add Sub Category</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="/subCategory/viewSubCategoryPage">
-                    <i class="fas fa-fw fa-boxes"></i>
-                    <span>View Sub Category</span>
-                </a>
-            </li>
-        </ul>
+<!-- Extra Category -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#extraCategoryMenu">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Extra Category</span>
+    </a>
+    <div id="extraCategoryMenu" class="collapse">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="/extraCategory/addExtraCategoryPage">Add Extra Category</a>
+            <a class="collapse-item" href="/extraCategory/viewExtraCategoryPage">View Extra Category</a>
+        </div>
+    </div>
+</li>
+</ul>
 
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
