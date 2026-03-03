@@ -41,4 +41,7 @@ route.use("/subCategory", passport.checkAuthDone, require("./subCategory.route")
 //Extra category page
 route.use("/extraCategory", passport.checkAuthDone, require("./extraCategory.route"));
 
+//Product Page
+route.use("/products", passport.checkAuthDone, require("./products.route"));
+
 module.exports = route;

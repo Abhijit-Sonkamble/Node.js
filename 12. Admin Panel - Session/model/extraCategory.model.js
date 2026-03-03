@@ -16,7 +16,7 @@ const extraCategorySchema = mongoose.Schema({
     extraCategory_name:{
         type: String,
         required:true
-    },
+    }
 
 });
 

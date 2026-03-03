@@ -49,7 +49,6 @@ module.exports.editSubCategory = async(req , res)=>{
     try{
         const { subCategoryId } = req.params;
         const subCategory = await SubCategoryModel.findById(subCategoryId).populate('category_id');
-
         const allCategory = await categoryModel.find();
         return res.render("subCategory/editSubCategoryPage" , {subCategory,allCategory})
     } catch (err) {
@@ -95,12 +94,6 @@ module.exports.deleteSubcategory = async (req, res) => {
       req.flash("error","Not deleted successfull");
       return res.redirect("/subCategory/viewSubCategoryPage");
     }
-
-    // if (deletedSubCategory.category_image) {
-    //   fs.unlink(deletedSubCategory.category_image, (err) => {
-    //     if (err) console.log("Fs-unlink error:", err);
-    //   });
-    // }
 
     req.flash("success", `${deletedSubCategory.category_name} Deleted successfully`);
    return res.redirect("/subCategory/viewSubCategoryPage");

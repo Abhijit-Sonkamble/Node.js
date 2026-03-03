@@ -15,6 +15,6 @@ subCategoryRoute.get("/editSubCategory/:subCategoryId" , editSubCategory )
 subCategoryRoute.post('/updateSubCategory/:subCategoryId', updateSubCategory);
 
 //Delete SubCategory
-subCategoryRoute.get("/deleteSubCategory/:subCategoryId",deleteSubcategory);
+subCategoryRoute.get("/deleteSubCategory/:subCategoryId", deleteSubcategory);
 
 module.exports = subCategoryRoute;

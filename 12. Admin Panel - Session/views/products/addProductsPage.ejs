@@ -1,0 +1,266 @@
+<%- include('../header') %>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-9 col-md-10">
+
+                <div class="card shadow-lg border-0 rounded-lg">
+                    <div class="card-body p-5">
+
+                        <div class="text-center mb-5">
+                            <h2 class="font-weight-bold">Add New Product</h2>
+                            <p class="text-muted mb-0">Enter product details carefully</p>
+                        </div>
+
+                        <form action="/products/addProducts" method="POST" enctype="multipart/form-data">
+
+                            <!-- TITLE -->
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">Product Title</label>
+                                <input type="text" class="form-control form-control-lg" name="title" id="title"
+                                    required>
+                            </div>
+
+                            <!-- CATEGORY ROW -->
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label class="font-weight-bold">Category</label>
+                                    <select class="form-control" name="category" id="category_id" required>
+                                        <option value="">Select Category</option>
+                                        <% allCategory.map((category)=> { %>
+                                            <option value="<%=category.id %>">
+                                                <%= category.category_name%>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="font-weight-bold">Sub Category</label>
+                                    <select class="form-control" name="subCategory" id="subCategory_id" required>
+                                        <option value="">Select Sub Category</option>
+                                        <% allSubCategory.map((subCategory)=> { %>
+                                            <option value="<%=subCategory.id %>">
+                                                <%= subCategory.SubCategory_name%>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="font-weight-bold">Extra Category</label>
+                                    <select class="form-control" name="extraCategory" id="extraCategory_id" required>
+                                        <option value="">Select Extra Category</option>
+                                        <% allExtraCategory.map((extraCategory)=> { %>
+                                            <option value="<%=extraCategory.id %>">
+                                                <%= extraCategory.extraCategory_name%>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- PRICE ROW -->
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label class="font-weight-bold">Price</label>
+                                    <input type="number" class="form-control" name="price" id="price" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="font-weight-bold">Old Price</label>
+                                    <input type="number" class="form-control" name="old_price" id="old_price" required>
+                                </div>
+                            </div>
+
+                            <!-- STOCK -->
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">Stock Quantity</label>
+                                <input type="number" class="form-control" name="stock" id="stock" required>
+                            </div>
+
+                            <!-- DESCRIPTION -->
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">Description</label>
+                                <textarea class="form-control" name="description" rows="4" id="description"
+                                    required></textarea>
+                            </div>
+
+                            <!-- IMAGE UPLOAD -->
+                            <div class="form-group mb-5">
+                                <label class="font-weight-bold">Product Image</label>
+
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="profileImg" name="profile_image"
+                                        accept="image/*" required>
+                                    <label class="custom-file-label" for="profileImg">Choose image...</label>
+                                </div>
+
+                                <div class="mt-4 text-center">
+                                    <img id="imgPreview"
+                                        style="display:none; width:150px; height:150px; object-fit:cover; border-radius:10px; border:1px solid #ddd;">
+                                </div>
+                            </div>
+
+                            <!-- BUTTON -->
+                            <button type="submit" class="btn btn-primary btn-lg btn-block shadow-sm">
+                                Add Product
+                            </button>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById("profileImg");
+        const imgPreview = document.getElementById("imgPreview");
+        const fileLabel = document.querySelector(".custom-file-label");
+
+        fileInput.addEventListener("change", function () {
+            const file = this.files[0];
+            if (!file) return;
+
+            fileLabel.innerText = file.name;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                imgPreview.src = e.target.result;
+                imgPreview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
+
+
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Your Website 2026</span>
+            </div>
+        </div>
+    </footer>
+    </div>
+    </div>
+    <script src="../../vendor/jquery/jquery.min.js"></script>
+    <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../../js/sb-admin-2.min.js"></script>
+    <script src="../../vendor/chart.js/Chart.min.js"></script>
+
+    <!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.18/dist/sweetalert2.all.min.js"></script>
+
+
+    <script>
+
+        if (<%= locals.flash.success !== "" && locals.flash.success.length > 0 %>) {
+            Swal.fire({
+                title: "Success...!",
+                text: "<%= locals.flash.success %>",
+                icon: "success"
+            });
+        }
+        if (<%= locals.flash.error !== "" && locals.flash.error.length > 0 %>) {
+            Swal.fire({
+                title: "Error..!",
+                text: "<%= locals.flash.error %>",
+                icon: "error"
+            });
+        }
+    </script>
+
+    <!-- <script>
+        const categoryField = document.getElementById("category_id");
+        const subCategoryField = document.getElementById("subCategory_id");
+        const extraCategoryField = document.getElementById("extraCategory_id");
+
+        const allSubCategoryData = <% - JSON.stringify(allSubCategory) %>;
+        const allExtraCategoryData = <% - JSON.stringify(allExtraCategory) %>;
+
+        document.getElementById("category").addEventListener("change", (e) => {
+
+            const filterSubCategory = allSubCategoryData.filter((subCategory) => subCategory.category_id === e.target.value);
+
+            subCategoryField.innerHTML = "<option value=''>Select SubCategory</option>";
+
+            filterSubCategory.forEach(element => {
+                subCategoryField.innerHTML += `<option value="${element._id}">
+                                                ${element.SubCategory_name}
+                                            </option>`
+            });
+
+            subCategoryField.addEventListener("change", (e) => {
+                const filterExtraCategory = allExtraCategoryData.filter(
+                    (extraCategory) => extraCategory.sub_category_id === e.target.value
+                );
+
+                filterSubCategory.forEach(element => {
+                    extraCategoryField.innerHTML += `<option value="${element._id}">
+                                                ${element.extraCategory_name}
+                                            </option>`
+                })
+
+            });
+    </script> -->
+    <script>
+        const categoryField = document.getElementById("category_id");
+        const subCategoryField = document.getElementById("subCategory_id");
+        const extraCategoryField = document.getElementById("extraCategory_id");
+
+        const allSubCategoryData = <%- JSON.stringify(allSubCategory) %>;
+        const allExtraCategoryData = <%- JSON.stringify(allExtraCategory) %>;
+
+        // CATEGORY CHANGE
+        categoryField.addEventListener("change", function () {
+
+            const selectedCategory = this.value;
+
+            subCategoryField.innerHTML = "<option value=''>Select Sub Category</option>";
+            extraCategoryField.innerHTML = "<option value=''>Select Extra Category</option>";
+
+            if (!selectedCategory) return;
+
+            const filteredSubCategories = allSubCategoryData.filter(sub =>
+                sub.category_id.toString() === selectedCategory
+            );
+
+            filteredSubCategories.forEach(sub => {
+                subCategoryField.innerHTML += `
+                <option value="${sub._id}">
+                    ${sub.SubCategory_name}
+                </option>
+            `;
+            });
+        });
+
+        // SUB CATEGORY CHANGE
+        subCategoryField.addEventListener("change", function () {
+
+            const selectedSubCategory = this.value;
+
+            extraCategoryField.innerHTML = "<option value=''>Select Extra Category</option>";
+
+            if (!selectedSubCategory) return;
+
+            const filteredExtraCategories = allExtraCategoryData.filter(extra =>
+                extra.subCategory_id.toString() === selectedSubCategory
+            );
+
+            filteredExtraCategories.forEach(extra => {
+                extraCategoryField.innerHTML += `
+                <option value="${extra._id}">
+                    ${extra.extraCategory_name}
+                </option>
+            `;
+            });
+        });
+    </script>
+
+    </body>
+
+    </html>
