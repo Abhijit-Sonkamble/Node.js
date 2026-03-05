@@ -26,7 +26,7 @@
                                         <option value="">Select Category</option>
 
                                         <% allCategory.map((category)=> { %>
-                                            <option value="<%=category.id %>">
+                                            <option <% if(category.id=== extraCategory.category_id.id){%>selected <%} %> value="<%=category.id %>">
                                                 <%= category.category_name%>
                                             </option>
                                             <% }) %>
@@ -44,13 +44,14 @@
                                     </div>
                                     <select class="form-control custom-select" name="subCategory_id" id="subCategory_id"
                                         required>
-                                        <option value="">Select SubCategory</option>
+                                        <option value="">Select Sub Category</option>
 
-                                        <% allSubCategory.map((subCategory)=> { %>
-                                            <option value="<%=subCategory.id %>">
+                                             <% allSubCategory.map((subCategory)=> { %>
+                                            <option <% if(subCategory.id === extraCategory.subCategory_id.id){%>selected <%} %> value="<%=subCategory.id %>">
                                                 <%= subCategory.SubCategory_name%>
                                             </option>
                                             <% }) %>
+
                                     </select>
                                 </div>
                             </div>
@@ -58,7 +59,7 @@
                             <div class="form-group mb-4">
                                 <label class="small font-weight-bold text-uppercase text-muted">Extra Category
                                     Name</label>
-                                <input type="text" class="form-control" name="extraCategory_name"
+                                <input type="text" class="form-control" value="<%=extraCategory.extraCategory_name %>" name="extraCategory_name"
                                     placeholder="Enter name" required>
                             </div>
 

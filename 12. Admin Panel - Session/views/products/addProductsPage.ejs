@@ -21,8 +21,9 @@
                                     required>
                             </div>
 
-                            <!-- CATEGORY ROW -->
+                            <!-- Category -->
                             <div class="row mb-4">
+
                                 <div class="col-md-6">
                                     <label class="font-weight-bold">Category</label>
                                     <select class="form-control" name="category" id="category_id" required>
@@ -35,6 +36,7 @@
                                     </select>
                                 </div>
 
+                                <!-- SubCategory -->
                                 <div class="col-md-6">
                                     <label class="font-weight-bold">Sub Category</label>
                                     <select class="form-control" name="subCategory" id="subCategory_id" required>
@@ -47,6 +49,11 @@
                                     </select>
                                 </div>
 
+                            </div>
+
+                            <!-- EXTRA CATEGORY -->
+                            <div class="row mb-4">
+
                                 <div class="col-md-6">
                                     <label class="font-weight-bold">Extra Category</label>
                                     <select class="form-control" name="extraCategory" id="extraCategory_id" required>
@@ -58,6 +65,7 @@
                                             <% }) %>
                                     </select>
                                 </div>
+
                             </div>
 
                             <!-- PRICE ROW -->
@@ -91,9 +99,9 @@
                                 <label class="font-weight-bold">Product Image</label>
 
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="profileImg" name="profile_image"
+                                    <input type="file" class="custom-file-input" id="product_image" name="product_image"
                                         accept="image/*" required>
-                                    <label class="custom-file-label" for="profileImg">Choose image...</label>
+                                    <label class="custom-file-label" for="product_image">Choose image...</label>
                                 </div>
 
                                 <div class="mt-4 text-center">
@@ -174,39 +182,6 @@
         }
     </script>
 
-    <!-- <script>
-        const categoryField = document.getElementById("category_id");
-        const subCategoryField = document.getElementById("subCategory_id");
-        const extraCategoryField = document.getElementById("extraCategory_id");
-
-        const allSubCategoryData = <% - JSON.stringify(allSubCategory) %>;
-        const allExtraCategoryData = <% - JSON.stringify(allExtraCategory) %>;
-
-        document.getElementById("category").addEventListener("change", (e) => {
-
-            const filterSubCategory = allSubCategoryData.filter((subCategory) => subCategory.category_id === e.target.value);
-
-            subCategoryField.innerHTML = "<option value=''>Select SubCategory</option>";
-
-            filterSubCategory.forEach(element => {
-                subCategoryField.innerHTML += `<option value="${element._id}">
-                                                ${element.SubCategory_name}
-                                            </option>`
-            });
-
-            subCategoryField.addEventListener("change", (e) => {
-                const filterExtraCategory = allExtraCategoryData.filter(
-                    (extraCategory) => extraCategory.sub_category_id === e.target.value
-                );
-
-                filterSubCategory.forEach(element => {
-                    extraCategoryField.innerHTML += `<option value="${element._id}">
-                                                ${element.extraCategory_name}
-                                            </option>`
-                })
-
-            });
-    </script> -->
     <script>
         const categoryField = document.getElementById("category_id");
         const subCategoryField = document.getElementById("subCategory_id");

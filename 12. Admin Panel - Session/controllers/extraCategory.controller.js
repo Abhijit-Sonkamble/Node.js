@@ -61,6 +61,11 @@ module.exports.editExtraCategoryPage = async (req, res) => {
       .populate("category_id")
       .populate("subCategory_id");
 
+    if (!extraCategory) {
+      req.flash("error", "Extra Category not found");
+      return res.redirect("/extraCategory/viewExtraCategoryPage");
+    }
+
     return res.render("extraCategory/editExtraCategoryPage", {
       allSubCategory,
       allCategory,
@@ -68,6 +73,7 @@ module.exports.editExtraCategoryPage = async (req, res) => {
     });
 
   } catch (err) {
+    console.log("Error:", err);
     req.flash("error", "Edit Failed");
     return res.redirect("/extraCategory/viewExtraCategoryPage");
   }
@@ -99,25 +105,32 @@ module.exports.updateExtraCategory = async(req, res)=>{
 //Delete Extra Category
 module.exports.deleteExtraCategory = async (req, res) => {
   try {
-
     const { extraCategoryId } = req.params;
     const deletedExtraCategory = await extraCategoryModel.findByIdAndDelete(extraCategoryId);
 
     if(!deletedExtraCategory){
-      req.flash("error","Not deleted successfull");
+      req.flash("error","Extra Category not found");
       return res.redirect("/extraCategory/viewExtraCategoryPage");
     }
 
-    // if (deletedSubCategory.category_image) {
-    //   fs.unlink(deletedSubCategory.category_image, (err) => {
-    //     if (err) console.log("Fs-unlink error:", err);
-    //   });
-    // }
+    // Delete all products and their images
+    const products = require("../model/products.model");
+    const fs = require("fs");
+    const allProducts = await products.find({ extraCategory_id: extraCategoryId });
+    allProducts.forEach(product => {
+      if (product.product_image) {
+        fs.unlink(product.product_image, (err) => {
+          if (err) console.log("Product image delete error:", err);
+        });
+      }
+    });
+    await products.deleteMany({ extraCategory_id: extraCategoryId });
 
-    req.flash("success", `${deletedExtraCategory.extraCategory_name} Extra Category Deleted successfully`);
-   return res.redirect("/extraCategory/viewExtraCategoryPage");
+    req.flash("success", `${deletedExtraCategory.extraCategory_name} and related products deleted successfully`);
+    return res.redirect("/extraCategory/viewExtraCategoryPage");
 
   } catch (err) {
+    console.log("Error:", err);
     req.flash("error","Delete Failed");
     return res.redirect("/extraCategory/viewExtraCategoryPage");
   }

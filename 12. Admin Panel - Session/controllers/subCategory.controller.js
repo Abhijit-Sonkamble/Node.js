@@ -83,22 +83,38 @@ module.exports.updateSubCategory = async(req, res)=>{
 }
 
 //Delete SubCategory
-
 module.exports.deleteSubcategory = async (req, res) => {
   try {
-
     const { subCategoryId } = req.params;
     const deletedSubCategory = await SubCategoryModel.findByIdAndDelete(subCategoryId);
 
     if(!deletedSubCategory){
-      req.flash("error","Not deleted successfull");
+      req.flash("error","SubCategory not found");
       return res.redirect("/subCategory/viewSubCategoryPage");
     }
 
-    req.flash("success", `${deletedSubCategory.category_name} Deleted successfully`);
-   return res.redirect("/subCategory/viewSubCategoryPage");
+    // Delete all extra categories
+    const extraCategoryModel = require("../model/extraCategory.model");
+    await extraCategoryModel.deleteMany({ subCategory_id: subCategoryId });
+
+    // Delete all products and their images
+    const products = require("../model/products.model");
+    const fs = require("fs");
+    const allProducts = await products.find({ subCategory_id: subCategoryId });
+    allProducts.forEach(product => {
+      if (product.product_image) {
+        fs.unlink(product.product_image, (err) => {
+          if (err) console.log("Product image delete error:", err);
+        });
+      }
+    });
+    await products.deleteMany({ subCategory_id: subCategoryId });
+
+    req.flash("success", `${deletedSubCategory.SubCategory_name} and related data deleted successfully`);
+    return res.redirect("/subCategory/viewSubCategoryPage");
 
   } catch (err) {
+    console.log("Error:", err);
     req.flash("error","Delete Failed");
     return res.redirect("/subCategory/viewSubCategoryPage");
   }
