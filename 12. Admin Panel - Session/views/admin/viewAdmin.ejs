@@ -20,48 +20,53 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                     <tbody>
-    <% allAdmin.forEach((row)=> { %>
-        <tr>
-            <td>
-                <img src="/<%= row.profile_image %>"
-                    style="width:50px; height:50px; border-radius:50%; object-fit:cover; border: 2px solid #eee;"
-                    onerror="this.src='/uploads/default-avatar.png'">
-            </td>
-            <td class="font-weight-bold text-dark">
-                <%= row.fname %> <%= row.lname %>
-            </td>
-            <td><%= row.gender %></td>
-            <td><%= row.email %></td>
-            <td><%= row.phone || 'N/A' %></td>
-            <td>
-                <span class="badge badge-pill badge-info" style="padding: 5px 10px;">
-                    <%= row.city %>
-                </span>
-            </td>
-            
-            <td>
-                <% if(admin.id === "697b97669a0ab2919ae18504") { %>
-                    <div class="d-flex align-items-center" style="gap: 8px;">
-                        <a href="/admin/editAdmin/<%= row._id %>" 
-                           class="btn btn-sm btn-primary shadow-sm" 
-                           title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a href="/admin/deleteAdmin/<%= row._id %>" 
-                           class="btn btn-sm btn-danger shadow-sm"
-                           onclick="return confirm('Delete this admin?')" 
-                           title="Delete">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    </div>
-                <% } else { %>
-                    <span class="text-muted small">No Access</span>
-                <% } %>
-            </td>
-        </tr>
-    <% }) %>
-</tbody>
+                        <tbody>
+                            <% allAdmin.forEach((row)=> { %>
+                                <tr>
+                                    <td>
+                                        <img src="/<%= row.profile_image %>"
+                                            style="width:50px; height:50px; border-radius:50%; object-fit:cover; border: 2px solid #eee;"
+                                            onerror="this.src='/uploads/default-avatar.png'">
+                                    </td>
+                                    <td class="font-weight-bold text-dark">
+                                        <%= row.fname %>
+                                            <%= row.lname %>
+                                    </td>
+                                    <td>
+                                        <%= row.gender %>
+                                    </td>
+                                    <td>
+                                        <%= row.email %>
+                                    </td>
+                                    <td>
+                                        <%= row.phone || 'N/A' %>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-pill badge-info" style="padding: 5px 10px;">
+                                            <%= row.city %>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <% if(admin.id==="69a16a1c75da0c1b998673a3" ) { %>
+                                            <div class="d-flex align-items-center" style="gap: 8px;">
+                                                <a href="/admin/editAdmin/<%= row._id %>"
+                                                    class="btn btn-sm btn-primary shadow-sm" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="/admin/deleteAdmin/<%= row._id %>"
+                                                    class="btn btn-sm btn-danger shadow-sm"
+                                                    onclick="return confirm('Delete this admin?')" title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </div>
+                                            <% } else { %>
+                                                <span class="text-muted small">No Access</span>
+                                                <% } %>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
                     </table>
                 </div>
             </div>
