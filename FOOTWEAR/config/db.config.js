@@ -1,4 +1,3 @@
-require("dotenv").config();
 //Attachement of mongoose
 const mongoose = require("mongoose");
 

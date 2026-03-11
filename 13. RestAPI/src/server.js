@@ -1,31 +1,25 @@
 require("dotenv").config();  
 const express = require("express")
 const app = express();
+
+//Morgan
+const morngan = require("morgan")
+
 require("./config/db.config");
 app.use(express.json())
 
+//Morgan require
+app.use(morngan("dev"));
+
 //Api
-app.use("/api", require("./routes"))
+app.use("/api", require("./routes"));
+
+
 
 //middleware
 app.use(express.urlencoded({ extended: true }));
 
 
-//Json data
-// app.use("/" , (req, res)=>{
-//   const Jsonobject = [
-//     {
-//         "name" : "abc",
-//         "age": 21,
-//         "phone" : "vivo t4"
-//     },
-//     {
-//         "Fav":"gym",
-//         "number":6353
-//     }
-//   ]
-//   return res.json(Jsonobject)
-// });
 
 
 app.listen(process.env.PORT, (err)=>{
