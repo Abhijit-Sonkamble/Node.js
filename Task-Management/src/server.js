@@ -18,7 +18,7 @@ app.use(morgan("dev"));
 
 app.use(express.json())
 
-app.use("/api", require("./routes/"))
+app.use("/api", require("./routes/index"))
 
 
 app.listen(PORT, (err) => {

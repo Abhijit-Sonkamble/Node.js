@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { type } = require("node:os");
 
 const adminSchema = mongoose.Schema ({
 
@@ -25,7 +24,15 @@ const adminSchema = mongoose.Schema ({
     },
     isDelete: {
         type: Boolean,
-        default : true
+        default : false
+    },
+    create_at : { // Admin kevha banla tyacha data milel
+        type: String,
+        required: true
+    },
+    update_at : { // Admin chya data madhe kadhi changes zale
+        type: String,
+        required: true
     },
 })
 
